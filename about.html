@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About | Miftahul Islam Taseen</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        body { font-family: system-ui, sans-serif; }
+        .nav-link { transition: all 0.3s ease; }
+        .nav-link:hover { color: #ef4444; transform: translateY(-2px); }
+        .red-accent { color: #ef4444; }
+    </style>
+</head>
+<body class="bg-zinc-950 dark:bg-zinc-100 text-white dark:text-zinc-900 transition-colors duration-300">
+
+    <!-- NAVBAR (now fully consistent with all pages) -->
+    <nav class="bg-zinc-950 dark:bg-white border-b border-red-600 sticky top-0 z-50">
+        <div class="max-w-6xl mx-auto px-6 py-5 flex justify-between items-center">
+            <h1 class="text-3xl font-bold tracking-tighter">Miftahul <span class="red-accent">Taseen</span></h1>
+            
+            <div class="hidden md:flex gap-8 text-lg font-medium">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="about.html" class="nav-link">About</a>
+                <a href="experience.html" class="nav-link">Experience</a>
+                <a href="skills.html" class="nav-link">Skills</a>
+                <a href="portfolio.html" class="nav-link">Portfolio</a>
+                <a href="certificates.html" class="nav-link">Certificates</a>
+                <a href="contact.html" class="nav-link">Contact</a>
+            </div>
+
+            <div class="flex items-center gap-4">
+                <button id="theme-toggle" class="text-2xl p-2 hover:bg-zinc-800 dark:hover:bg-zinc-200 rounded-xl transition">
+                    <i class="fas fa-moon"></i>
+                </button>
+                <button id="mobile-menu-button" class="md:hidden text-3xl focus:outline-none">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-zinc-950 dark:bg-white border-t border-red-600">
+            <div class="flex flex-col px-6 py-6 gap-6 text-lg font-medium">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="about.html" class="nav-link">About</a>
+                <a href="experience.html" class="nav-link">Experience</a>
+                <a href="skills.html" class="nav-link">Skills</a>
+                <a href="portfolio.html" class="nav-link">Portfolio</a>
+                <a href="certificates.html" class="nav-link">Certificates</a>
+                <a href="contact.html" class="nav-link">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ABOUT SECTION -->
+    <section class="py-20 max-w-5xl mx-auto px-6">
+        <h1 class="text-6xl font-bold text-center mb-12">About Me</h1>
+        
+        <div class="grid md:grid-cols-2 gap-12 items-center">
+            <div>
+                <img src="images/profile.jpg" alt="Miftahul Islam Taseen" 
+                     class="rounded-3xl shadow-2xl w-full">
+                <p class="text-center mt-4 text-sm text-zinc-500 dark:text-zinc-600">
+                    2nd Year Mechanical Engineering • KUET • CGPA 3.54
+                </p>
+            </div>
+            <div class="space-y-6 text-lg">
+                <p class="text-xl leading-relaxed">
+                    Driven and adaptable Mechanical Engineering undergraduate with a strong foundation 
+                    in leadership, team collaboration, and technical skills.
+                </p>
+                <p>
+                    Currently contributing to <span class="red-accent font-semibold">Team Kilo Flight</span> 
+                    (Body & Aerodynamics + Business Management & Content teams) while actively leading 
+                    multiple university clubs and events.
+                </p>
+                <p>
+                    Passionate about 3D modelling, event management, content creation, public speaking, 
+                    and turning ideas into reality.
+                </p>
+            </div>
+        </div>
+
+        <!-- EDUCATION - NOW CENTERED & BEAUTIFULLY ALIGNED -->
+        <div class="mt-20 max-w-2xl mx-auto">
+            <h2 class="text-4xl font-bold text-center mb-10">Education</h2>
+            
+            <div class="bg-zinc-900 dark:bg-white rounded-3xl p-10 space-y-10 text-center">
+                <div>
+                    <p class="text-red-600 font-semibold text-xl">Khulna University of Engineering & Technology</p>
+                    <p class="text-2xl font-medium mt-1">Department of Mechanical Engineering</p>
+                    <p class="text-zinc-400 dark:text-zinc-600 mt-3">2nd Year • Current CGPA 3.54</p>
+                </div>
+                
+                <div class="h-px bg-zinc-700 dark:bg-zinc-300 w-3/4 mx-auto"></div>
+                
+                <div>
+                    <p class="text-red-600 font-semibold text-xl">Notre Dame College, Dhaka</p>
+                    <p class="text-2xl font-medium mt-1">HSC • GPA 5.00</p>
+                    <p class="text-zinc-400 dark:text-zinc-600 mt-3">2020 – 2022</p>
+                </div>
+                
+                <div class="h-px bg-zinc-700 dark:bg-zinc-300 w-3/4 mx-auto"></div>
+                
+                <div>
+                    <p class="text-red-600 font-semibold text-xl">St. Gregory's High School & College</p>
+                    <p class="text-2xl font-medium mt-1">SSC • GPA 5.00</p>
+                    <p class="text-zinc-400 dark:text-zinc-600 mt-3">2010 – 2020</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="py-8 text-center text-zinc-500 text-sm border-t border-zinc-800 dark:border-zinc-200">
+        © 2026 Miftahul Islam Taseen • Made with pure HTML, CSS & Tailwind
+    </footer>
+
+    <script>
+        // Mobile menu
+        const menuBtn = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        menuBtn.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
+
+        // Dark/Light toggle (fixed & consistent)
+        const themeToggle = document.getElementById('theme-toggle');
+        const html = document.documentElement;
+        themeToggle.addEventListener('click', () => {
+            html.classList.toggle('dark');
+            themeToggle.innerHTML = html.classList.contains('dark') 
+                ? '<i class="fas fa-moon"></i>' 
+                : '<i class="fas fa-sun"></i>';
+        });
+    </script>
+</body>
+</html>

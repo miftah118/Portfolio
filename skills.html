@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Skills | Miftahul Islam Taseen</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        body { font-family: system-ui, sans-serif; }
+        .nav-link { transition: all 0.3s ease; }
+        .nav-link:hover { color: #ef4444; transform: translateY(-2px); }
+        .red-accent { color: #ef4444; }
+        .skill-card {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .skill-card:hover {
+            transform: translateY(-12px) scale(1.03);
+            box-shadow: 0 25px 50px -12px rgb(239 68 68 / 0.25);
+        }
+    </style>
+</head>
+<body class="bg-zinc-950 dark:bg-zinc-100 text-white dark:text-zinc-900 transition-colors duration-300">
+
+    <!-- NAVBAR (identical to other pages) -->
+    <nav class="bg-zinc-950 dark:bg-white border-b border-red-600 sticky top-0 z-50">
+        <div class="max-w-6xl mx-auto px-6 py-5 flex justify-between items-center">
+            <h1 class="text-3xl font-bold tracking-tighter">Miftahul <span class="red-accent">Taseen</span></h1>
+            
+            <div class="hidden md:flex gap-8 text-lg font-medium">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="about.html" class="nav-link">About</a>
+                <a href="experience.html" class="nav-link">Experience</a>
+                <a href="skills.html" class="nav-link">Skills</a>
+                <a href="portfolio.html" class="nav-link">Portfolio</a>
+                <a href="certificates.html" class="nav-link">Certificates</a>
+                <a href="contact.html" class="nav-link">Contact</a>
+            </div>
+
+            <div class="flex items-center gap-4">
+                <button id="theme-toggle" class="text-2xl p-2 hover:bg-zinc-800 dark:hover:bg-zinc-200 rounded-xl transition">
+                    <i class="fas fa-moon"></i>
+                </button>
+                <button id="mobile-menu-button" class="md:hidden text-3xl focus:outline-none">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-zinc-950 dark:bg-white border-t border-red-600">
+            <div class="flex flex-col px-6 py-6 gap-6 text-lg font-medium">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="about.html" class="nav-link">About</a>
+                <a href="experience.html" class="nav-link">Experience</a>
+                <a href="skills.html" class="nav-link">Skills</a>
+                <a href="portfolio.html" class="nav-link">Portfolio</a>
+                <a href="certificates.html" class="nav-link">Certificates</a>
+                <a href="contact.html" class="nav-link">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- SKILLS SECTION -->
+    <section class="py-20 max-w-6xl mx-auto px-6">
+        <h1 class="text-6xl font-bold text-center mb-6">Skills</h1>
+        <p class="text-center text-xl text-zinc-400 dark:text-zinc-600 mb-16 max-w-xl mx-auto">
+            Technical expertise + leadership & creative skills that power everything I do
+        </p>
+
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+            <!-- Technical Skills -->
+            <div class="skill-card bg-zinc-900 dark:bg-white p-8 rounded-3xl">
+                <div class="flex items-center gap-4 mb-6">
+                    <i class="fas fa-cube text-4xl text-red-600"></i>
+                    <h3 class="text-2xl font-semibold">Technical & Engineering</h3>
+                </div>
+                <div class="space-y-6">
+                    <div class="flex justify-between items-center">
+                        <span class="text-lg">3D Modelling</span>
+                        <span class="text-red-600 font-medium">SolidWorks • AutoCAD</span>
+                    </div>
+                    <div class="h-px bg-zinc-700 dark:bg-zinc-300"></div>
+                    
+                    <div class="flex justify-between items-center">
+                        <span class="text-lg">Simulation & Programming</span>
+                        <span class="text-red-600 font-medium">Basic MATLAB • Python</span>
+                    </div>
+                    <div class="h-px bg-zinc-700 dark:bg-zinc-300"></div>
+                    
+                    <div class="flex justify-between items-center">
+                        <span class="text-lg">Google Suite</span>
+                        <span class="text-red-600 font-medium">Docs • Sheets • Slides</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Design & Media Skills -->
+            <div class="skill-card bg-zinc-900 dark:bg-white p-8 rounded-3xl">
+                <div class="flex items-center gap-4 mb-6">
+                    <i class="fas fa-palette text-4xl text-red-600"></i>
+                    <h3 class="text-2xl font-semibold">Design & Media</h3>
+                </div>
+                <div class="space-y-6">
+                    <div class="flex justify-between items-center">
+                        <span class="text-lg">Graphic Design</span>
+                        <span class="text-red-600 font-medium">Photoshop • Illustrator • Canva</span>
+                    </div>
+                    <div class="h-px bg-zinc-700 dark:bg-zinc-300"></div>
+                    
+                    <div class="flex justify-between items-center">
+                        <span class="text-lg">Video Editing & Post Production</span>
+                        <span class="text-red-600 font-medium">Premiere Pro • After Effects</span>
+                    </div>
+                    <div class="h-px bg-zinc-700 dark:bg-zinc-300"></div>
+                    
+                    <div class="flex justify-between items-center">
+                        <span class="text-lg">Content Creation</span>
+                        <span class="text-red-600 font-medium">Writing • Editing • Promotion</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Leadership & Soft Skills -->
+            <div class="skill-card bg-zinc-900 dark:bg-white p-8 rounded-3xl">
+                <div class="flex items-center gap-4 mb-6">
+                    <i class="fas fa-users text-4xl text-red-600"></i>
+                    <h3 class="text-2xl font-semibold">Leadership & Soft Skills</h3>
+                </div>
+                <div class="space-y-6">
+                    <div class="flex justify-between items-center">
+                        <span class="text-lg">Event Management & Team Leadership</span>
+                        <span class="text-red-600 font-medium">Proven in 10+ events</span>
+                    </div>
+                    <div class="h-px bg-zinc-700 dark:bg-zinc-300"></div>
+                    
+                    <div class="flex justify-between items-center">
+                        <span class="text-lg">Public Speaking & Hosting</span>
+                        <span class="text-red-600 font-medium">National & International guests</span>
+                    </div>
+                    <div class="h-px bg-zinc-700 dark:bg-zinc-300"></div>
+                    
+                    <div class="flex justify-between items-center">
+                        <span class="text-lg">Communication & Collaboration</span>
+                        <span class="text-red-600 font-medium">PR • Logistics • Media</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Extra highlight row -->
+        <div class="mt-16 bg-gradient-to-r from-red-600/10 to-transparent border border-red-600/30 rounded-3xl p-8 text-center">
+            <p class="text-xl font-medium">
+                🏆 <span class="red-accent">2nd Runners-up</span> – SolidWorks Workshop 2025 by CADers<br>
+                <span class="text-sm text-zinc-400 dark:text-zinc-600 mt-2 block">+ Semi-finalist BitFest & Mindspark24</span>
+            </p>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="py-8 text-center text-zinc-500 text-sm border-t border-zinc-800 dark:border-zinc-200">
+        © 2026 Miftahul Islam Taseen • Made with pure HTML, CSS & Tailwind
+    </footer>
+
+    <script>
+        // Mobile menu
+        const menuBtn = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        menuBtn.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
+
+        // Dark/Light toggle
+        const themeToggle = document.getElementById('theme-toggle');
+        const html = document.documentElement;
+        themeToggle.addEventListener('click', () => {
+            html.classList.toggle('dark');
+            themeToggle.innerHTML = html.classList.contains('dark') 
+                ? '<i class="fas fa-moon"></i>' 
+                : '<i class="fas fa-sun"></i>';
+        });
+    </script>
+</body>
+</html>

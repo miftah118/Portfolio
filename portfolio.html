@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio | Miftahul Islam Taseen</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        body { font-family: system-ui, sans-serif; }
+        .nav-link { transition: all 0.3s ease; }
+        .nav-link:hover { color: #ef4444; transform: translateY(-2px); }
+        .red-accent { color: #ef4444; }
+        
+        .tab-button {
+            transition: all 0.3s ease;
+        }
+        .tab-button.active {
+            border-bottom: 4px solid #ef4444;
+            color: #ef4444;
+            font-weight: 600;
+        }
+        
+        .portfolio-card {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .portfolio-card:hover {
+            transform: translateY(-12px);
+            box-shadow: 0 25px 50px -12px rgb(239 68 68 / 0.25);
+        }
+        .portfolio-card img {
+            transition: transform 0.6s ease;
+        }
+        .portfolio-card:hover img {
+            transform: scale(1.08);
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        .tab-content.active {
+            display: block;
+        }
+    </style>
+</head>
+<body class="bg-zinc-950 dark:bg-zinc-100 text-white dark:text-zinc-900 transition-colors duration-300">
+
+    <!-- NAVBAR (same as all other pages) -->
+    <nav class="bg-zinc-950 dark:bg-white border-b border-red-600 sticky top-0 z-50">
+        <div class="max-w-6xl mx-auto px-6 py-5 flex justify-between items-center">
+            <h1 class="text-3xl font-bold tracking-tighter">Miftahul <span class="red-accent">Taseen</span></h1>
+            
+            <div class="hidden md:flex gap-8 text-lg font-medium">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="about.html" class="nav-link">About</a>
+                <a href="experience.html" class="nav-link">Experience</a>
+                <a href="skills.html" class="nav-link">Skills</a>
+                <a href="portfolio.html" class="nav-link">Portfolio</a>
+                <a href="certificates.html" class="nav-link">Certificates</a>
+                <a href="contact.html" class="nav-link">Contact</a>
+            </div>
+
+            <div class="flex items-center gap-4">
+                <button id="theme-toggle" class="text-2xl p-2 hover:bg-zinc-800 dark:hover:bg-zinc-200 rounded-xl transition">
+                    <i class="fas fa-moon"></i>
+                </button>
+                <button id="mobile-menu-button" class="md:hidden text-3xl focus:outline-none">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-zinc-950 dark:bg-white border-t border-red-600">
+            <div class="flex flex-col px-6 py-6 gap-6 text-lg font-medium">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="about.html" class="nav-link">About</a>
+                <a href="experience.html" class="nav-link">Experience</a>
+                <a href="skills.html" class="nav-link">Skills</a>
+                <a href="portfolio.html" class="nav-link">Portfolio</a>
+                <a href="certificates.html" class="nav-link">Certificates</a>
+                <a href="contact.html" class="nav-link">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- PORTFOLIO HERO -->
+    <section class="py-20 max-w-6xl mx-auto px-6 text-center">
+        <h1 class="text-6xl font-bold mb-4">Portfolio</h1>
+        <p class="text-xl text-zinc-400 dark:text-zinc-600 max-w-2xl mx-auto">
+            My work organized exactly like my skills — click the tabs below to toggle between categories and see the actual media I’ve created
+        </p>
+    </section>
+
+    <!-- TABS -->
+    <div class="max-w-6xl mx-auto px-6">
+        <div class="flex flex-wrap justify-center gap-8 border-b border-zinc-700 dark:border-zinc-300 pb-4 mb-12">
+            <button onclick="switchTab(0)" class="tab-button active px-8 py-3 text-lg" id="tab-0">
+                Technical &amp; Engineering
+            </button>
+            <button onclick="switchTab(1)" class="tab-button px-8 py-3 text-lg" id="tab-1">
+                Design &amp; Media
+            </button>
+            <button onclick="switchTab(2)" class="tab-button px-8 py-3 text-lg" id="tab-2">
+                Leadership &amp; Soft Skills
+            </button>
+        </div>
+
+        <!-- TAB 1: Technical & Engineering -->
+        <div id="content-0" class="tab-content active">
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-10">
+                <!-- Replace the src paths with your own uploaded images -->
+                <div class="portfolio-card bg-zinc-900 dark:bg-white rounded-3xl overflow-hidden">
+                    <img src="images/portfolio/technical/solidworks-model.jpg" alt="SolidWorks Project" class="w-full h-64 object-cover">
+                    <div class="p-6">
+                        <h3 class="font-semibold text-xl">Formula Student EV Bodywork</h3>
+                        <p class="text-red-600 text-sm">Team Kilo Flight • 2025</p>
+                        <p class="text-zinc-400 dark:text-zinc-600 text-sm mt-2">Full chassis &amp; aerodynamic package modeled in SolidWorks + CFD in ANSYS</p>
+                    </div>
+                </div>
+
+                <div class="portfolio-card bg-zinc-900 dark:bg-white rounded-3xl overflow-hidden">
+                    <img src="images/portfolio/technical/robotic-arm.jpg" alt="Robotic Arm" class="w-full h-64 object-cover">
+                    <div class="p-6">
+                        <h3 class="font-semibold text-xl">6-DOF Robotic Arm</h3>
+                        <p class="text-red-600 text-sm">Personal Project</p>
+                        <p class="text-zinc-400 dark:text-zinc-600 text-sm mt-2">Complete SolidWorks assembly with inverse kinematics simulation</p>
+                    </div>
+                </div>
+
+                <div class="portfolio-card bg-zinc-900 dark:bg-white rounded-3xl overflow-hidden">
+                    <img src="images/portfolio/technical/cad-rush.jpg" alt="CAD Workshop" class="w-full h-64 object-cover">
+                    <div class="p-6">
+                        <h3 class="font-semibold text-xl">CADRush Workshop Model</h3>
+                        <p class="text-red-600 text-sm">2nd Runners-up • 2025</p>
+                        <p class="text-zinc-400 dark:text-zinc-600 text-sm mt-2">Winning entry from SolidWorks workshop by CADers</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 2: Design & Media -->
+        <div id="content-1" class="tab-content">
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-10">
+                <div class="portfolio-card bg-zinc-900 dark:bg-white rounded-3xl overflow-hidden">
+                    <img src="images/portfolio/design/cadrush-poster.jpg" alt="CADRush Poster" class="w-full h-64 object-cover">
+                    <div class="p-6">
+                        <h3 class="font-semibold text-xl">CADRush Event Poster</h3>
+                        <p class="text-red-600 text-sm">PR &amp; Media Officer</p>
+                        <p class="text-zinc-400 dark:text-zinc-600 text-sm mt-2">Photoshop + Illustrator promotional material</p>
+                    </div>
+                </div>
+
+                <div class="portfolio-card bg-zinc-900 dark:bg-white rounded-3xl overflow-hidden">
+                    <img src="images/portfolio/design/kiloflight-thumbnail.jpg" alt="Video Thumbnail" class="w-full h-64 object-cover">
+                    <div class="p-6">
+                        <h3 class="font-semibold text-xl">Team Kilo Flight Promo Video</h3>
+                        <p class="text-red-600 text-sm">Business &amp; Content Team</p>
+                        <p class="text-zinc-400 dark:text-zinc-600 text-sm mt-2">Edited in Premiere Pro + After Effects</p>
+                    </div>
+                </div>
+
+                <div class="portfolio-card bg-zinc-900 dark:bg-white rounded-3xl overflow-hidden">
+                    <img src="images/portfolio/design/canva-graphic.jpg" alt="Canva Design" class="w-full h-64 object-cover">
+                    <div class="p-6">
+                        <h3 class="font-semibold text-xl">KBEC Nexus 2025 Graphics</h3>
+                        <p class="text-red-600 text-sm">Senior Executive</p>
+                        <p class="text-zinc-400 dark:text-zinc-600 text-sm mt-2">Full social media kit in Canva + Illustrator</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 3: Leadership & Soft Skills -->
+        <div id="content-2" class="tab-content">
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-10">
+                <div class="portfolio-card bg-zinc-900 dark:bg-white rounded-3xl overflow-hidden">
+                    <img src="images/portfolio/leadership/ndmurc-event.jpg" alt="NDIURC Event" class="w-full h-64 object-cover">
+                    <div class="p-6">
+                        <h3 class="font-semibold text-xl">Sagacity 3.0 National Event</h3>
+                        <p class="text-red-600 text-sm">General Secretary – NDIURC</p>
+                        <p class="text-zinc-400 dark:text-zinc-600 text-sm mt-2">Full event management, guest handling &amp; hosting</p>
+                    </div>
+                </div>
+
+                <div class="portfolio-card bg-zinc-900 dark:bg-white rounded-3xl overflow-hidden">
+                    <img src="images/portfolio/leadership/kbec-nexus.jpg" alt="KBEC Nexus" class="w-full h-64 object-cover">
+                    <div class="p-6">
+                        <h3 class="font-semibold text-xl">KBEC Nexus 2025</h3>
+                        <p class="text-red-600 text-sm">Senior Executive</p>
+                        <p class="text-zinc-400 dark:text-zinc-600 text-sm mt-2">Logistics, promotion &amp; team coordination photos</p>
+                    </div>
+                </div>
+
+                <div class="portfolio-card bg-zinc-900 dark:bg-white rounded-3xl overflow-hidden">
+                    <img src="images/portfolio/leadership/hult-prize.jpg" alt="Hult Prize" class="w-full h-64 object-cover">
+                    <div class="p-6">
+                        <h3 class="font-semibold text-xl">Hult Prize KUET On-Campus</h3>
+                        <p class="text-red-600 text-sm">Organizer</p>
+                        <p class="text-zinc-400 dark:text-zinc-600 text-sm mt-2">PR, volunteer management &amp; execution gallery</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="py-8 text-center text-zinc-500 text-sm border-t border-zinc-800 dark:border-zinc-200 mt-20">
+        © 2026 Miftahul Islam Taseen • Made with pure HTML, CSS & Tailwind
+    </footer>
+
+    <script>
+        // Mobile menu
+        const menuBtn = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        menuBtn.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
+
+        // Dark/Light toggle
+        const themeToggle = document.getElementById('theme-toggle');
+        const html = document.documentElement;
+        themeToggle.addEventListener('click', () => {
+            html.classList.toggle('dark');
+            themeToggle.innerHTML = html.classList.contains('dark') 
+                ? '<i class="fas fa-moon"></i>' 
+                : '<i class="fas fa-sun"></i>';
+        });
+
+        // Tab switching function
+        function switchTab(tabIndex) {
+            // Hide all contents
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            // Show selected content
+            document.getElementById('content-' + tabIndex).classList.add('active');
+            
+            // Update active tab button
+            document.querySelectorAll('.tab-button').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            document.getElementById('tab-' + tabIndex).classList.add('active');
+        }
+    </script>
+</body>
+</html>
