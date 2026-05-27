@@ -6,186 +6,344 @@
     <title>Experience | Miftahul Islam Taseen</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
     <style>
-        body { font-family: system-ui, sans-serif; }
-        .nav-link { transition: all 0.3s ease; }
-        .nav-link:hover { color: #ef4444; transform: translateY(-2px); }
-        .red-accent { color: #ef4444; }
-        .timeline-dot { 
-            width: 16px; height: 16px; 
-            background: #ef4444; 
-            border: 3px solid #fff; 
-            box-shadow: 0 0 0 4px #ef4444;
-        }
+        :root { --red:#ef4444;--bg:#09090b;--surface:#111113;--card:rgba(255,255,255,0.03);--border:#27272a;--border-glass:rgba(255,255,255,0.07);--text:#fafafa;--muted:#71717a; }
+        html.light { --bg:#f9f9f9;--surface:#ffffff;--card:rgba(0,0,0,0.02);--border:#e4e4e7;--border-glass:rgba(0,0,0,0.07);--text:#18181b;--muted:#71717a; }
+        *{box-sizing:border-box;}html{scroll-behavior:smooth;}
+        body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);transition:background 0.4s,color 0.4s;overflow-x:hidden;}
+        h1,h2,h3,.font-display{font-family:'Syne',sans-serif;}
+        body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");pointer-events:none;z-index:0;opacity:0.4;}
+        nav{background:rgba(9,9,11,0.85);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100;}
+        html.light nav{background:rgba(255,255,255,0.88);}
+        .nav-link{font-family:'Syne',sans-serif;font-weight:600;font-size:0.88rem;letter-spacing:0.03em;color:var(--muted);transition:color 0.25s,transform 0.25s;text-decoration:none;position:relative;}
+        .nav-link::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:2px;background:var(--red);transition:width 0.25s;}
+        .nav-link:hover{color:var(--text);transform:translateY(-1px);}
+        .nav-link:hover::after,.nav-link.active::after{width:100%;}
+        .nav-link.active{color:var(--red);}
+        #theme-toggle{width:40px;height:40px;border-radius:10px;border:1px solid var(--border);background:transparent;color:var(--muted);font-size:1rem;cursor:pointer;transition:all 0.25s;display:flex;align-items:center;justify-content:center;}
+        #theme-toggle:hover{border-color:var(--red);color:var(--red);}
+        #mobile-menu{background:rgba(9,9,11,0.98);backdrop-filter:blur(20px);border-top:1px solid var(--border);}
+        html.light #mobile-menu{background:rgba(255,255,255,0.98);}
+
+        .glass-card{background:var(--card);backdrop-filter:blur(12px);border:1px solid var(--border-glass);border-radius:20px;transition:all 0.3s ease;}
+        .glass-card:hover{border-color:rgba(239,68,68,0.25);box-shadow:0 20px 40px rgba(0,0,0,0.3);}
+
+        .page-hero{background:linear-gradient(135deg,rgba(239,68,68,0.06) 0%,transparent 60%);border-bottom:1px solid var(--border);padding:72px 0 56px;position:relative;overflow:hidden;}
+        .page-hero::after{content:'';position:absolute;top:-100px;right:-100px;width:400px;height:400px;border-radius:50%;background:radial-gradient(circle,rgba(239,68,68,0.08) 0%,transparent 70%);pointer-events:none;}
+
+        /* TIMELINE */
+        .timeline-track{position:relative;padding-left:40px;}
+        .timeline-track::before{content:'';position:absolute;left:11px;top:8px;bottom:8px;width:2px;background:linear-gradient(to bottom,var(--red),rgba(239,68,68,0.1));}
+        .tl-item{position:relative;margin-bottom:40px;}
+        .tl-item:last-child{margin-bottom:0;}
+        .tl-dot{position:absolute;left:-40px;top:6px;width:24px;height:24px;border-radius:50%;background:var(--bg);border:2px solid var(--red);display:flex;align-items:center;justify-content:center;box-shadow:0 0 0 4px rgba(239,68,68,0.15);}
+        .tl-dot i{font-size:0.6rem;color:var(--red);}
+        .tl-dot.filled{background:var(--red);}
+        .tl-dot.filled i{color:white;}
+
+        .tag{display:inline-flex;align-items:center;gap:5px;background:rgba(239,68,68,0.08);border:1px solid rgba(239,68,68,0.18);color:var(--text);font-size:0.75rem;font-weight:600;padding:4px 10px;border-radius:6px;}
+
+        .red-divider{width:48px;height:3px;background:var(--red);border-radius:2px;}
+        .reveal{opacity:0;transform:translateY(28px);transition:opacity 0.7s ease,transform 0.7s ease;}
+        .reveal.visible{opacity:1;transform:translateY(0);}
+        .icon-box{width:48px;height:48px;border-radius:14px;flex-shrink:0;background:rgba(239,68,68,0.1);border:1px solid rgba(239,68,68,0.2);display:flex;align-items:center;justify-content:center;color:var(--red);font-size:1.1rem;}
+
+        footer{border-top:1px solid var(--border);background:var(--surface);}
     </style>
 </head>
-<body class="bg-zinc-950 dark:bg-zinc-100 text-white dark:text-zinc-900 transition-colors duration-300">
+<body>
 
-    <!-- NAVBAR (same as index.html) -->
-    <nav class="bg-zinc-950 dark:bg-white border-b border-red-600 sticky top-0 z-50">
-        <div class="max-w-6xl mx-auto px-6 py-5 flex justify-between items-center">
-            <h1 class="text-3xl font-bold tracking-tighter">Miftahul <span class="red-accent">Taseen</span></h1>
-            
-            <div class="hidden md:flex gap-8 text-lg font-medium">
+    <!-- NAVBAR -->
+    <nav>
+        <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="index.html" class="font-display text-2xl font-bold tracking-tight" style="text-decoration:none;color:var(--text)">Miftahul <span style="color:var(--red)">Taseen</span></a>
+            <div class="hidden md:flex gap-7 items-center">
                 <a href="index.html" class="nav-link">Home</a>
                 <a href="about.html" class="nav-link">About</a>
-                <a href="experience.html" class="nav-link">Experience</a>
+                <a href="experience.html" class="nav-link active">Experience</a>
                 <a href="skills.html" class="nav-link">Skills</a>
                 <a href="portfolio.html" class="nav-link">Portfolio</a>
                 <a href="certificates.html" class="nav-link">Certificates</a>
                 <a href="contact.html" class="nav-link">Contact</a>
             </div>
-
-            <div class="flex items-center gap-4">
-                <button id="theme-toggle" class="text-2xl p-2 hover:bg-zinc-800 dark:hover:bg-zinc-200 rounded-xl transition">
-                    <i class="fas fa-moon"></i>
-                </button>
-                <button id="mobile-menu-button" class="md:hidden text-3xl focus:outline-none">
-                    <i class="fas fa-bars"></i>
-                </button>
+            <div class="flex items-center gap-3">
+                <button id="theme-toggle"><i class="fas fa-moon"></i></button>
+                <button id="mobile-menu-button" class="md:hidden" style="background:transparent;border:none;color:var(--text);font-size:1.4rem;cursor:pointer"><i class="fas fa-bars"></i></button>
             </div>
         </div>
-
-        <!-- Mobile Menu -->
-        <div id="mobile-menu" class="hidden md:hidden bg-zinc-950 dark:bg-white border-t border-red-600">
-            <div class="flex flex-col px-6 py-6 gap-6 text-lg font-medium">
-                <a href="index.html" class="nav-link">Home</a>
-                <a href="about.html" class="nav-link">About</a>
-                <a href="experience.html" class="nav-link">Experience</a>
-                <a href="skills.html" class="nav-link">Skills</a>
-                <a href="portfolio.html" class="nav-link">Portfolio</a>
-                <a href="certificates.html" class="nav-link">Certificates</a>
-                <a href="contact.html" class="nav-link">Contact</a>
+        <div id="mobile-menu" class="hidden md:hidden">
+            <div class="flex flex-col px-6 py-6 gap-5">
+                <a href="index.html" class="nav-link" style="font-size:1rem">Home</a>
+                <a href="about.html" class="nav-link" style="font-size:1rem">About</a>
+                <a href="experience.html" class="nav-link active" style="font-size:1rem">Experience</a>
+                <a href="skills.html" class="nav-link" style="font-size:1rem">Skills</a>
+                <a href="portfolio.html" class="nav-link" style="font-size:1rem">Portfolio</a>
+                <a href="certificates.html" class="nav-link" style="font-size:1rem">Certificates</a>
+                <a href="contact.html" class="nav-link" style="font-size:1rem">Contact</a>
             </div>
         </div>
     </nav>
 
-    <!-- EXPERIENCE SECTION -->
-    <section class="py-20 max-w-5xl mx-auto px-6">
-        <h1 class="text-6xl font-bold text-center mb-16">Experience</h1>
-
-        <!-- Professional Experience -->
-        <div class="mb-16">
-            <h2 class="text-3xl font-semibold mb-8 flex items-center gap-3">
-                <i class="fas fa-briefcase text-red-600"></i> Professional Experience
-            </h2>
-            <div class="space-y-12">
-                <div class="flex gap-6">
-                    <div class="w-3 h-3 mt-2 rounded-full bg-red-600 flex-shrink-0"></div>
-                    <div class="flex-1">
-                        <h3 class="text-2xl font-semibold">Outsource Writer (R&D)</h3>
-                        <p class="text-red-600">Lecture Publications • 2024 – Present</p>
-                        <p class="mt-2 text-zinc-300 dark:text-zinc-700">Writing and research for educational content and publications.</p>
-                    </div>
-                </div>
-
-                <div class="flex gap-6">
-                    <div class="w-3 h-3 mt-2 rounded-full bg-red-600 flex-shrink-0"></div>
-                    <div class="flex-1">
-                        <h3 class="text-2xl font-semibold">Temp Officer Worker</h3>
-                        <p class="text-red-600">Clementine Group Limited • 2023</p>
-                        <p class="mt-2 text-zinc-300 dark:text-zinc-700">Administrative and operational support role.</p>
-                    </div>
-                </div>
-
-                <div class="flex gap-6">
-                    <div class="w-3 h-3 mt-2 rounded-full bg-red-600 flex-shrink-0"></div>
-                    <div class="flex-1">
-                        <h3 class="text-2xl font-semibold">QnA Teacher</h3>
-                        <p class="text-red-600">Udvash Academic & Admission Care, ACS • 2024</p>
-                        <p class="mt-2 text-zinc-300 dark:text-zinc-700">Conducted doubt-clearing sessions and academic support.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- University Club Experience -->
-        <div class="mb-16">
-            <h2 class="text-3xl font-semibold mb-8 flex items-center gap-3">
-                <i class="fas fa-university text-red-600"></i> University Club Experience
-            </h2>
-            <div class="grid md:grid-cols-2 gap-8">
-                <div class="bg-zinc-900 dark:bg-white p-8 rounded-3xl">
-                    <h3 class="text-xl font-semibold mb-1">CADers (PR & Media Officer)</h3>
-                    <p class="text-red-600 text-sm">2024 – Present</p>
-                    <ul class="mt-4 space-y-2 text-zinc-300 dark:text-zinc-700 list-disc ml-5">
-                        <li>Publicized CADRush event</li>
-                        <li>Created event content, graphics, and promotion materials</li>
-                    </ul>
-                </div>
-
-                <div class="bg-zinc-900 dark:bg-white p-8 rounded-3xl">
-                    <h3 class="text-xl font-semibold mb-1">KBEC (Senior Executive)</h3>
-                    <p class="text-red-600 text-sm">2024 – Present</p>
-                    <ul class="mt-4 space-y-2 text-zinc-300 dark:text-zinc-700 list-disc ml-5">
-                        <li>Organizing Member for “KBEC Nexus 2025”</li>
-                        <li>Handled communication, logistics, and promotion</li>
-                    </ul>
-                </div>
-
-                <div class="bg-zinc-900 dark:bg-white p-8 rounded-3xl">
-                    <h3 class="text-xl font-semibold mb-1">Spectrum (Junior Executive)</h3>
-                    <p class="text-red-600 text-sm">2024 – Present</p>
-                    <ul class="mt-4 space-y-2 text-zinc-300 dark:text-zinc-700 list-disc ml-5">
-                        <li>Involved in “JobSpecs 2025” national job fair</li>
-                        <li>Worked in PR and logistics</li>
-                    </ul>
-                </div>
-
-                <div class="bg-zinc-900 dark:bg-white p-8 rounded-3xl">
-                    <h3 class="text-xl font-semibold mb-1">Team Kilo Flight (Trainee Member)</h3>
-                    <p class="text-red-600 text-sm">2024 – Present</p>
-                    <ul class="mt-4 space-y-2 text-zinc-300 dark:text-zinc-700 list-disc ml-5">
-                        <li>Body & Aerodynamics sub-team</li>
-                        <li>Business Management & Content team</li>
-                    </ul>
-                </div>
-
-                <div class="bg-zinc-900 dark:bg-white p-8 rounded-3xl">
-                    <h3 class="text-xl font-semibold mb-1">Hult Prize KUET (Organizer)</h3>
-                    <p class="text-red-600 text-sm">2024 – Present</p>
-                    <ul class="mt-4 space-y-2 text-zinc-300 dark:text-zinc-700 list-disc ml-5">
-                        <li>Contributed to on-campus planning, PR, and execution</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-
-        <!-- College & School Experience (collapsed for cleanliness) -->
-        <div>
-            <h2 class="text-3xl font-semibold mb-8 flex items-center gap-3">
-                <i class="fas fa-school text-red-600"></i> College & School Experience
-            </h2>
-            <div class="bg-zinc-900 dark:bg-white p-8 rounded-3xl">
-                <ul class="space-y-6 text-zinc-300 dark:text-zinc-700">
-                    <li><strong>General Secretary — NDIURC (2022-2023)</strong><br>Oversaw all major events including Sagacity 3.0 & 2.0, hosted national-international guests, Under Secretary General (Admin) for NDCMUN 2022, Editor of Annual Magazine “JOGAJOG”</li>
-                    <li><strong>Joint Official Secretary — Gregorian Science Club (2018-2019)</strong><br>St. Gregory’s High School & College</li>
-                    <li><strong>Volunteer — Gregorian Debating Club Fest</strong></li>
-                </ul>
+    <!-- PAGE HERO -->
+    <section class="page-hero">
+        <div class="max-w-6xl mx-auto px-6 relative z-10">
+            <div class="reveal">
+                <p class="font-display text-sm font-bold tracking-widest uppercase mb-3" style="color:var(--red)">My journey so far</p>
+                <h1 class="font-display font-bold mb-4" style="font-size:clamp(2.5rem,5vw,3.8rem);line-height:1.1">Experience</h1>
+                <div class="red-divider mb-4"></div>
+                <p style="color:var(--muted);font-size:1.05rem;max-width:520px;line-height:1.7">Professional roles, club leadership, and the experiences that have shaped who I am.</p>
             </div>
         </div>
     </section>
 
+    <!-- MAIN -->
+    <main class="max-w-6xl mx-auto px-6 py-20 relative z-10">
+
+        <div class="grid md:grid-cols-2 gap-16">
+
+            <!-- LEFT: PROFESSIONAL -->
+            <div class="reveal" style="transition-delay:0.1s">
+                <div class="flex items-center gap-3 mb-8">
+                    <div class="icon-box"><i class="fas fa-briefcase"></i></div>
+                    <div>
+                        <p class="font-display text-xs font-bold tracking-widest uppercase" style="color:var(--red)">Work</p>
+                        <h2 class="font-display font-bold text-2xl">Professional</h2>
+                    </div>
+                </div>
+                <div class="red-divider mb-10"></div>
+
+                <div class="timeline-track">
+                    <div class="tl-item">
+                        <div class="tl-dot filled"><i class="fas fa-circle"></i></div>
+                        <div class="glass-card p-6">
+                            <div class="flex items-start justify-between gap-4 mb-3">
+                                <div>
+                                    <h3 class="font-display font-bold text-lg" style="color:var(--text)">Research Executive</h3>
+                                    <p style="color:var(--red);font-size:0.85rem;font-weight:600;margin-top:2px">Bytepress — Tech & AI Content</p>
+                                </div>
+                                <span class="tag" style="white-space:nowrap;flex-shrink:0">2025 – Present</span>
+                            </div>
+                            <p style="color:var(--muted);font-size:0.88rem;line-height:1.7">Researched and published tech & AI content for Facebook and LinkedIn. A single post achieved <strong style="color:var(--text)">1,700+ organic shares</strong>. Contributed to content strategy supporting audience growth and platform algorithm alignment.</p>
+                            <div class="flex flex-wrap gap-2 mt-4"><span class="tag">AI Content</span><span class="tag">Social Media</span><span class="tag">Research</span></div>
+                        </div>
+                    </div>
+
+                    <div class="tl-item">
+                        <div class="tl-dot filled"><i class="fas fa-circle"></i></div>
+                        <div class="glass-card p-6">
+                            <div class="flex items-start justify-between gap-4 mb-3">
+                                <div>
+                                    <h3 class="font-display font-bold text-lg" style="color:var(--text)">Content Writer (R&D)</h3>
+                                    <p style="color:var(--red);font-size:0.85rem;font-weight:600;margin-top:2px">Lecture Publications Ltd.</p>
+                                </div>
+                                <span class="tag" style="white-space:nowrap;flex-shrink:0">Jun 2024 – Present</span>
+                            </div>
+                            <p style="color:var(--muted);font-size:0.88rem;line-height:1.7">Developed structured educational content for secondary and tertiary learners, prioritising clarity and accuracy across engineering and science topics.</p>
+                            <div class="flex flex-wrap gap-2 mt-4"><span class="tag">Technical Writing</span><span class="tag">R&D</span></div>
+                        </div>
+                    </div>
+
+                    <div class="tl-item">
+                        <div class="tl-dot filled"><i class="fas fa-circle"></i></div>
+                        <div class="glass-card p-6">
+                            <div class="flex items-start justify-between gap-4 mb-3">
+                                <div>
+                                    <h3 class="font-display font-bold text-lg" style="color:var(--text)">Q&A Teacher</h3>
+                                    <p style="color:var(--red);font-size:0.85rem;font-weight:600;margin-top:2px">Udvash Academic & Admission Care</p>
+                                </div>
+                                <span class="tag" style="white-space:nowrap;flex-shrink:0">Oct 2023 – Oct 2024</span>
+                            </div>
+                            <p style="color:var(--muted);font-size:0.88rem;line-height:1.7">Facilitated doubt-clearing sessions and mentored <strong style="color:var(--text)">10+ students</strong> with measurable improvements in exam readiness.</p>
+                            <div class="flex flex-wrap gap-2 mt-4"><span class="tag">Teaching</span><span class="tag">Mentoring</span></div>
+                        </div>
+                    </div>
+
+                    <div class="tl-item">
+                        <div class="tl-dot filled"><i class="fas fa-circle"></i></div>
+                        <div class="glass-card p-6">
+                            <div class="flex items-start justify-between gap-4 mb-3">
+                                <div>
+                                    <h3 class="font-display font-bold text-lg" style="color:var(--text)">Temporary Office Worker</h3>
+                                    <p style="color:var(--red);font-size:0.85rem;font-weight:600;margin-top:2px">Clementine Group Limited</p>
+                                </div>
+                                <span class="tag" style="white-space:nowrap;flex-shrink:0">Jul – Nov 2023</span>
+                            </div>
+                            <p style="color:var(--muted);font-size:0.88rem;line-height:1.7">Data entry, internal communication workflows and cross-departmental coordination using Microsoft Excel.</p>
+                            <div class="flex flex-wrap gap-2 mt-4"><span class="tag">Data Entry</span><span class="tag">MS Excel</span></div>
+                        </div>
+                    </div>
+
+                    <div class="tl-item">
+                        <div class="tl-dot"><i class="fas fa-circle"></i></div>
+                        <div class="glass-card p-6">
+                            <div class="flex items-start justify-between gap-4 mb-3">
+                                <div>
+                                    <h3 class="font-display font-bold text-lg" style="color:var(--text)">Graphic Designer & Video Editor</h3>
+                                    <p style="color:var(--red);font-size:0.85rem;font-weight:600;margin-top:2px">WSEH – English Speaking Platform</p>
+                                </div>
+                                <span class="tag" style="white-space:nowrap;flex-shrink:0">2021 – 2023</span>
+                            </div>
+                            <p style="color:var(--muted);font-size:0.88rem;line-height:1.7">Produced GFX and VFX content for a digital English-language platform over 2 years.</p>
+                            <div class="flex flex-wrap gap-2 mt-4"><span class="tag">GFX / VFX</span><span class="tag">Video Editing</span><span class="tag">Graphic Design</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- RIGHT: TEAM KILO FLIGHT -->
+            <div class="reveal" style="transition-delay:0.2s">
+                <div class="flex items-center gap-3 mb-8">
+                    <div class="icon-box"><i class="fas fa-bolt"></i></div>
+                    <div>
+                        <p class="font-display text-xs font-bold tracking-widest uppercase" style="color:var(--red)">Team</p>
+                        <h2 class="font-display font-bold text-2xl">Formula Student EV</h2>
+                    </div>
+                </div>
+                <div class="red-divider mb-10"></div>
+
+                <div class="timeline-track">
+                    <div class="tl-item">
+                        <div class="tl-dot filled"><i class="fas fa-circle"></i></div>
+                        <div class="glass-card p-6">
+                            <div class="flex items-start justify-between gap-4 mb-3">
+                                <div>
+                                    <h3 class="font-display font-bold text-lg" style="color:var(--text)">Junior Executive — Body & Aerodynamics</h3>
+                                    <p style="color:var(--red);font-size:0.85rem;font-weight:600;margin-top:2px">Team Kilo Flight — KUET</p>
+                                </div>
+                                <span class="tag" style="white-space:nowrap;flex-shrink:0">2025 – Present</span>
+                            </div>
+                            <p style="color:var(--muted);font-size:0.88rem;line-height:1.7">Working on aerodynamic body components for the Formula Student electric vehicle — shape optimisation, drag reduction, and structural design using SolidWorks.</p>
+                            <div class="flex flex-wrap gap-2 mt-4"><span class="tag">SolidWorks CAD</span><span class="tag">Aerodynamics</span><span class="tag">Body Design</span></div>
+                        </div>
+                    </div>
+                    <div class="tl-item">
+                        <div class="tl-dot filled"><i class="fas fa-circle"></i></div>
+                        <div class="glass-card p-6">
+                            <div class="flex items-start justify-between gap-4 mb-3">
+                                <div>
+                                    <h3 class="font-display font-bold text-lg" style="color:var(--text)">Junior Executive — Business Management & Content</h3>
+                                    <p style="color:var(--red);font-size:0.85rem;font-weight:600;margin-top:2px">Team Kilo Flight — KUET</p>
+                                </div>
+                                <span class="tag" style="white-space:nowrap;flex-shrink:0">2025 – Present</span>
+                            </div>
+                            <p style="color:var(--muted);font-size:0.88rem;line-height:1.7">Managing sponsorship outreach, business plan documentation, and content creation for the team's social media presence and competition presentations.</p>
+                            <div class="flex flex-wrap gap-2 mt-4"><span class="tag">Business Plan</span><span class="tag">Sponsorship</span><span class="tag">Content Creation</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- CLUB LEADERSHIP -->
+        <div class="reveal mt-20">
+            <div class="flex items-center gap-3 mb-8">
+                <div class="icon-box"><i class="fas fa-users"></i></div>
+                <div>
+                    <p class="font-display text-xs font-bold tracking-widest uppercase" style="color:var(--red)">Campus</p>
+                    <h2 class="font-display font-bold text-2xl">Club & Leadership Roles</h2>
+                </div>
+            </div>
+            <div class="red-divider mb-10"></div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+
+                <div class="glass-card p-6">
+                    <div class="flex items-start gap-4 mb-4">
+                        <div class="icon-box"><i class="fas fa-chart-line"></i></div>
+                        <div>
+                            <h3 class="font-display font-bold text-base" style="color:var(--text)">Spectrum</h3>
+                            <p style="color:var(--red);font-size:0.82rem;font-weight:600">Senior Executive</p>
+                            <p style="color:var(--muted);font-size:0.77rem;margin-top:2px">Oct 2024 – Present</p>
+                        </div>
+                    </div>
+                    <p style="color:var(--muted);font-size:0.85rem;line-height:1.65">Professional Skill Development Club, KUET. Organised <strong style="color:var(--text)">CASESPECS 3.0</strong> (1,300+ participants, 59 universities) — sponsor outreach, promotions & case design. Led PR for <strong style="color:var(--text)">JobSpecs 2025</strong> national job fair.</p>
+                </div>
+
+                <div class="glass-card p-6">
+                    <div class="flex items-start gap-4 mb-4">
+                        <div class="icon-box"><i class="fas fa-cube"></i></div>
+                        <div>
+                            <h3 class="font-display font-bold text-base" style="color:var(--text)">CADers, KUET</h3>
+                            <p style="color:var(--red);font-size:0.82rem;font-weight:600">Asst. PR & Media Officer</p>
+                            <p style="color:var(--muted);font-size:0.77rem;margin-top:2px">Jan 2025 – Present</p>
+                        </div>
+                    </div>
+                    <p style="color:var(--muted);font-size:0.85rem;line-height:1.65">Designed promotional content for <strong style="color:var(--text)">CADRush</strong>. Achieved <strong style="color:var(--text)">2nd Runners-Up, SolidWorks Workshop 2025</strong> — driving visibility and engagement for CAD competitions at KUET.</p>
+                </div>
+
+                <div class="glass-card p-6">
+                    <div class="flex items-start gap-4 mb-4">
+                        <div class="icon-box"><i class="fas fa-briefcase"></i></div>
+                        <div>
+                            <h3 class="font-display font-bold text-base" style="color:var(--text)">KBEC</h3>
+                            <p style="color:var(--red);font-size:0.82rem;font-weight:600">Senior Executive</p>
+                            <p style="color:var(--muted);font-size:0.77rem;margin-top:2px">Nov 2024 – May 2026</p>
+                        </div>
+                    </div>
+                    <p style="color:var(--muted);font-size:0.85rem;line-height:1.65">Khulna Business & Entrepreneurship Club. Handled logistics, promotions and event coordination for <strong style="color:var(--text)">KBEC Nexus S1 & S2</strong>. Managed attendee coordination and ticketing for <strong style="color:var(--text)">TEDxKUET</strong>.</p>
+                </div>
+
+                <div class="glass-card p-6">
+                    <div class="flex items-start gap-4 mb-4">
+                        <div class="icon-box"><i class="fas fa-globe"></i></div>
+                        <div>
+                            <h3 class="font-display font-bold text-base" style="color:var(--text)">Hult Prize KUET</h3>
+                            <p style="color:var(--red);font-size:0.82rem;font-weight:600">Organiser</p>
+                            <p style="color:var(--muted);font-size:0.77rem;margin-top:2px">2024 – Present</p>
+                        </div>
+                    </div>
+                    <p style="color:var(--muted);font-size:0.85rem;line-height:1.65">Coordinated on-campus round planning, PR, and volunteer management for the world's largest student social enterprise competition at KUET.</p>
+                </div>
+
+                <div class="glass-card p-6">
+                    <div class="flex items-start gap-4 mb-4">
+                        <div class="icon-box"><i class="fas fa-pen-alt"></i></div>
+                        <div>
+                            <h3 class="font-display font-bold text-base" style="color:var(--text)">NDIURC, Notre Dame College</h3>
+                            <p style="color:var(--red);font-size:0.82rem;font-weight:600">General Secretary</p>
+                            <p style="color:var(--muted);font-size:0.77rem;margin-top:2px">Oct 2022 – Oct 2023</p>
+                        </div>
+                    </div>
+                    <p style="color:var(--muted);font-size:0.85rem;line-height:1.65">Led a <strong style="color:var(--text)">30+ member team</strong>. Organised <strong style="color:var(--text)">Sagacity 3.0 & 2.0</strong> (national & international guests). Served as USG Admin, NDCMUN 2022 and Chief Editor of Annual Magazine <em>JOGAJOG</em>.</p>
+                </div>
+
+                <div class="glass-card p-6" style="background:linear-gradient(135deg,rgba(239,68,68,0.05),rgba(239,68,68,0.02))">
+                    <div class="flex items-start gap-4 mb-4">
+                        <div class="icon-box"><i class="fas fa-trophy"></i></div>
+                        <div>
+                            <h3 class="font-display font-bold text-base" style="color:var(--text)">IGNITION'26, KUET</h3>
+                            <p style="color:var(--red);font-size:0.82rem;font-weight:600">Presenter & Volunteer</p>
+                            <p style="color:var(--muted);font-size:0.77rem;margin-top:2px">2025</p>
+                        </div>
+                    </div>
+                    <p style="color:var(--muted);font-size:0.85rem;line-height:1.65">National Engineering Festival. Poster Presentation: <strong style="color:var(--text)">Deep Learning Rice Leaf Disease Detection</strong>. Also competed in LFR competition and volunteered for 3 Minute Thesis event.</p>
+                </div>
+
+            </div>
+        </div>
+
+    </main>
+
     <!-- FOOTER -->
-    <footer class="py-8 text-center text-zinc-500 text-sm border-t border-zinc-800 dark:border-zinc-200">
-        © 2026 Miftahul Islam Taseen • Made with pure HTML, CSS & Tailwind
+    <footer class="py-8 text-center">
+        <div class="max-w-6xl mx-auto px-6">
+            <p class="font-display font-bold text-lg mb-1" style="color:var(--text)">Miftahul <span style="color:var(--red)">Taseen</span></p>
+            <p style="color:var(--muted);font-size:0.82rem">© 2026 Miftahul Islam Taseen &nbsp;•&nbsp; Built with HTML, CSS & Tailwind</p>
+        </div>
     </footer>
 
     <script>
-        // Mobile menu
-        const menuBtn = document.getElementById('mobile-menu-button');
-        const mobileMenu = document.getElementById('mobile-menu');
-        menuBtn.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
-
-        // Dark/Light toggle (fixed version)
-        const themeToggle = document.getElementById('theme-toggle');
         const html = document.documentElement;
-        themeToggle.addEventListener('click', () => {
-            html.classList.toggle('dark');
-            themeToggle.innerHTML = html.classList.contains('dark') 
-                ? '<i class="fas fa-moon"></i>' 
-                : '<i class="fas fa-sun"></i>';
-        });
+        const themeBtn = document.getElementById('theme-toggle');
+        html.classList.add('dark');
+        function updateIcon(){themeBtn.innerHTML=html.classList.contains('dark')?'<i class="fas fa-moon"></i>':'<i class="fas fa-sun"></i>';}
+        updateIcon();
+        themeBtn.addEventListener('click',()=>{html.classList.toggle('dark');html.classList.toggle('light');updateIcon();});
+        document.getElementById('mobile-menu-button').addEventListener('click',()=>{document.getElementById('mobile-menu').classList.toggle('hidden');});
+        const observer=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');});},{threshold:0.1});
+        document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
     </script>
 </body>
 </html>

@@ -3,24 +3,248 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Miftahul Islam Taseen | Mechanical Engineer</title>
+    <title>Miftahul Islam Taseen — Mechanical Engineer</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+
     <style>
-        body { font-family: system-ui, sans-serif; }
-        .nav-link { transition: all 0.3s ease; }
-        .nav-link:hover { color: #ef4444; transform: translateY(-2px); }
-        .red-accent { color: #ef4444; }
+        :root {
+            --red: #ef4444;
+            --bg: #09090b;
+            --surface: #111113;
+            --border: #27272a;
+            --text: #fafafa;
+            --muted: #71717a;
+        }
+        html.light {
+            --bg: #f9f9f9;
+            --surface: #ffffff;
+            --border: #e4e4e7;
+            --text: #18181b;
+            --muted: #71717a;
+        }
+
+        * { box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            transition: background 0.4s, color 0.4s;
+            overflow-x: hidden;
+        }
+        h1,h2,h3,.font-display { font-family: 'Syne', sans-serif; }
+
+        /* NOISE */
+        body::before {
+            content: '';
+            position: fixed; inset: 0;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+            pointer-events: none; z-index: 0; opacity: 0.4;
+        }
+
+        /* GRID BG */
+        .grid-bg {
+            background-image:
+                linear-gradient(to right, rgba(239,68,68,0.04) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(239,68,68,0.04) 1px, transparent 1px);
+            background-size: 60px 60px;
+        }
+
+        /* NAVBAR */
+        nav {
+            background: rgba(9,9,11,0.85);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+            position: sticky; top: 0; z-index: 100;
+        }
+        html.light nav { background: rgba(255,255,255,0.88); }
+
+        .nav-link {
+            font-family: 'Syne', sans-serif; font-weight: 600;
+            font-size: 0.88rem; letter-spacing: 0.03em;
+            color: var(--muted); transition: color 0.25s, transform 0.25s;
+            text-decoration: none; position: relative;
+        }
+        .nav-link::after {
+            content: ''; position: absolute; bottom: -4px; left: 0;
+            width: 0; height: 2px; background: var(--red); transition: width 0.25s;
+        }
+        .nav-link:hover { color: var(--text); transform: translateY(-1px); }
+        .nav-link:hover::after { width: 100%; }
+        .nav-link.active { color: var(--red); }
+        .nav-link.active::after { width: 100%; }
+
+        /* HERO */
+        .hero { min-height: 100vh; display: flex; align-items: center; position: relative; overflow: hidden; }
+
+        .hero-glow {
+            position: absolute; width: 700px; height: 700px; border-radius: 50%;
+            background: radial-gradient(circle, rgba(239,68,68,0.11) 0%, transparent 70%);
+            top: 50%; left: 50%; transform: translate(-50%,-50%);
+            animation: pulse-glow 4s ease-in-out infinite; pointer-events: none;
+        }
+        @keyframes pulse-glow {
+            0%,100% { transform: translate(-50%,-50%) scale(1); opacity:0.8; }
+            50% { transform: translate(-50%,-50%) scale(1.15); opacity:1; }
+        }
+
+        /* PROFILE RING */
+        .profile-ring {
+            width: 220px; height: 220px; border-radius: 50%;
+            position: relative; margin: 0 auto;
+        }
+        .profile-ring::before {
+            content: ''; position: absolute; inset: -4px; border-radius: 50%;
+            background: conic-gradient(from 0deg, #ef4444, #7f1d1d, #ef4444, #dc2626, #ef4444);
+            animation: spin-ring 4s linear infinite; z-index: -1;
+        }
+        @keyframes spin-ring { to { transform: rotate(360deg); } }
+        .profile-ring img, .profile-ring .placeholder {
+            width: 100%; height: 100%; border-radius: 50%;
+            object-fit: cover; border: 4px solid var(--bg);
+        }
+        .profile-ring .placeholder {
+            background: linear-gradient(135deg, #1c1c1e, #2c2c2e);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 5rem; color: var(--muted);
+        }
+        html.light .profile-ring .placeholder { background: linear-gradient(135deg, #e4e4e7, #d4d4d8); }
+        html.light .profile-ring::before { border: none; }
+
+        /* TYPED */
+        .typed-text { color: var(--red); }
+        .cursor {
+            display: inline-block; width: 3px; height: 1em;
+            background: var(--red); margin-left: 3px;
+            vertical-align: text-bottom; animation: blink 0.8s step-end infinite;
+        }
+        @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+
+        /* BADGE */
+        .badge {
+            display: inline-flex; align-items: center; gap: 6px;
+            background: rgba(239,68,68,0.1); border: 1px solid rgba(239,68,68,0.25);
+            color: #ef4444; font-size: 0.75rem; font-weight: 700;
+            letter-spacing: 0.07em; text-transform: uppercase;
+            padding: 5px 14px; border-radius: 999px; font-family: 'Syne', sans-serif;
+        }
+        .badge .dot {
+            width: 6px; height: 6px; border-radius: 50%; background: #ef4444;
+            animation: pulse-dot 1.5s ease-in-out infinite;
+        }
+        @keyframes pulse-dot {
+            0%,100%{box-shadow:0 0 0 0 rgba(239,68,68,0.6)}
+            50%{box-shadow:0 0 0 5px rgba(239,68,68,0)}
+        }
+
+        /* BUTTONS */
+        .btn-primary {
+            background: var(--red); color: white; padding: 13px 28px;
+            border-radius: 12px; font-family: 'Syne', sans-serif; font-weight: 700;
+            font-size: 0.92rem; letter-spacing: 0.02em; transition: all 0.25s;
+            text-decoration: none; display: inline-flex; align-items: center; gap: 8px;
+            position: relative; overflow: hidden;
+        }
+        .btn-primary::after {
+            content: ''; position: absolute; inset: 0;
+            background: rgba(255,255,255,0.1);
+            transform: translateX(-110%) skewX(-15deg); transition: transform 0.4s;
+        }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(239,68,68,0.35); }
+        .btn-primary:hover::after { transform: translateX(110%) skewX(-15deg); }
+
+        .btn-outline {
+            border: 1.5px solid rgba(239,68,68,0.45); color: var(--text);
+            padding: 13px 28px; border-radius: 12px; font-family: 'Syne', sans-serif;
+            font-weight: 700; font-size: 0.92rem; letter-spacing: 0.02em;
+            transition: all 0.25s; text-decoration: none;
+            display: inline-flex; align-items: center; gap: 8px;
+        }
+        .btn-outline:hover { background: rgba(239,68,68,0.08); border-color: var(--red); transform: translateY(-2px); }
+
+        /* STAT CARDS */
+        .stat-card {
+            background: var(--surface); border: 1px solid var(--border);
+            border-radius: 14px; padding: 20px 16px; text-align: center;
+            transition: all 0.3s; position: relative; overflow: hidden;
+        }
+        .stat-card::before {
+            content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+            background: linear-gradient(90deg, transparent, var(--red), transparent);
+            transform: scaleX(0); transition: transform 0.4s;
+        }
+        .stat-card:hover { transform: translateY(-4px); border-color: rgba(239,68,68,0.3); }
+        .stat-card:hover::before { transform: scaleX(1); }
+        .stat-num {
+            font-family: 'Syne', sans-serif; font-size: 2rem;
+            font-weight: 800; color: var(--red); line-height: 1;
+        }
+
+        /* SOCIAL LINKS */
+        .social-link {
+            width: 42px; height: 42px; border-radius: 10px;
+            border: 1px solid var(--border);
+            display: flex; align-items: center; justify-content: center;
+            color: var(--muted); font-size: 1rem; transition: all 0.25s; text-decoration: none;
+        }
+        .social-link:hover { border-color: var(--red); color: var(--red); background: rgba(239,68,68,0.08); transform: translateY(-3px); }
+        .social-link.cv-btn { width: auto; padding: 0 14px; font-size: 0.8rem; font-family: 'Syne', sans-serif; font-weight: 700; gap: 6px; }
+
+        /* SCROLL REVEAL */
+        .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.7s ease, transform 0.7s ease; }
+        .reveal.visible { opacity: 1; transform: translateY(0); }
+
+        /* PARTICLES */
+        .particle {
+            position: absolute; border-radius: 50%;
+            background: rgba(239,68,68,0.15);
+            animation: float-particle linear infinite; pointer-events: none;
+        }
+        @keyframes float-particle {
+            0%{transform:translateY(100vh) rotate(0deg);opacity:0}
+            10%{opacity:1} 90%{opacity:0.5}
+            100%{transform:translateY(-100px) rotate(720deg);opacity:0}
+        }
+
+        /* SCROLL INDICATOR */
+        .scroll-indicator { animation: bounce-down 2s ease-in-out infinite; }
+        @keyframes bounce-down { 0%,100%{transform:translateY(0)} 50%{transform:translateY(8px)} }
+
+        /* INFO STRIP */
+        .info-strip { border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); background: var(--surface); }
+
+        /* THEME TOGGLE */
+        #theme-toggle {
+            width: 40px; height: 40px; border-radius: 10px;
+            border: 1px solid var(--border); background: transparent;
+            color: var(--muted); font-size: 1rem; cursor: pointer; transition: all 0.25s;
+            display: flex; align-items: center; justify-content: center;
+        }
+        #theme-toggle:hover { border-color: var(--red); color: var(--red); }
+
+        /* MOBILE MENU */
+        #mobile-menu { background: rgba(9,9,11,0.98); backdrop-filter: blur(20px); border-top: 1px solid var(--border); }
+        html.light #mobile-menu { background: rgba(255,255,255,0.98); }
+
+        footer { border-top: 1px solid var(--border); background: var(--surface); }
+
+        /* DIVIDER */
+        .red-divider { width: 48px; height: 3px; background: var(--red); border-radius: 2px; }
     </style>
 </head>
-<body class="bg-zinc-950 dark:bg-zinc-100 text-white dark:text-zinc-900 transition-colors duration-300">
+<body>
+
     <!-- NAVBAR -->
-    <nav class="bg-zinc-950 dark:bg-white border-b border-red-600 sticky top-0 z-50">
-        <div class="max-w-6xl mx-auto px-6 py-5 flex justify-between items-center">
-            <h1 class="text-3xl font-bold tracking-tighter">Miftahul <span class="red-accent">Taseen</span></h1>
-            
-            <div class="hidden md:flex gap-8 text-lg font-medium">
-                <a href="index.html" class="nav-link">Home</a>
+    <nav>
+        <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="index.html" class="font-display text-2xl font-bold tracking-tight" style="text-decoration:none;color:var(--text)">
+                Miftahul <span style="color:var(--red)">Taseen</span>
+            </a>
+            <div class="hidden md:flex gap-7 items-center">
+                <a href="index.html" class="nav-link active">Home</a>
                 <a href="about.html" class="nav-link">About</a>
                 <a href="experience.html" class="nav-link">Experience</a>
                 <a href="skills.html" class="nav-link">Skills</a>
@@ -28,68 +252,236 @@
                 <a href="certificates.html" class="nav-link">Certificates</a>
                 <a href="contact.html" class="nav-link">Contact</a>
             </div>
-
-            <div class="flex items-center gap-4">
-                <button id="theme-toggle" class="text-2xl p-2 hover:bg-zinc-800 dark:hover:bg-zinc-200 rounded-xl transition">
-                    <i class="fas fa-moon"></i>
-                </button>
-                <button id="mobile-menu-button" class="md:hidden text-3xl focus:outline-none">
-                    <i class="fas fa-bars"></i>
-                </button>
+            <div class="flex items-center gap-3">
+                <button id="theme-toggle" title="Toggle theme"><i class="fas fa-moon"></i></button>
+                <button id="mobile-menu-button" class="md:hidden" style="background:transparent;border:none;color:var(--text);font-size:1.4rem;cursor:pointer"><i class="fas fa-bars"></i></button>
             </div>
         </div>
-
-        <!-- Mobile Menu -->
-        <div id="mobile-menu" class="hidden md:hidden bg-zinc-950 dark:bg-white border-t border-red-600">
-            <div class="flex flex-col px-6 py-6 gap-6 text-lg font-medium">
-                <a href="index.html" class="nav-link">Home</a>
-                <a href="about.html" class="nav-link">About</a>
-                <a href="experience.html" class="nav-link">Experience</a>
-                <a href="skills.html" class="nav-link">Skills</a>
-                <a href="portfolio.html" class="nav-link">Portfolio</a>
-                <a href="certificates.html" class="nav-link">Certificates</a>
-                <a href="contact.html" class="nav-link">Contact</a>
+        <div id="mobile-menu" class="hidden md:hidden">
+            <div class="flex flex-col px-6 py-6 gap-5">
+                <a href="index.html" class="nav-link" style="font-size:1rem">Home</a>
+                <a href="about.html" class="nav-link" style="font-size:1rem">About</a>
+                <a href="experience.html" class="nav-link" style="font-size:1rem">Experience</a>
+                <a href="skills.html" class="nav-link" style="font-size:1rem">Skills</a>
+                <a href="portfolio.html" class="nav-link" style="font-size:1rem">Portfolio</a>
+                <a href="certificates.html" class="nav-link" style="font-size:1rem">Certificates</a>
+                <a href="contact.html" class="nav-link" style="font-size:1rem">Contact</a>
             </div>
         </div>
     </nav>
 
     <!-- HERO -->
-    <section class="min-h-screen flex items-center bg-gradient-to-br from-zinc-950 via-black to-zinc-950 dark:from-zinc-100 dark:via-white dark:to-zinc-100">
-        <div class="max-w-6xl mx-auto px-6 text-center">
-            <h2 class="text-7xl font-bold mb-6 leading-tight">Hi, I'm <span class="red-accent">Miftahul Islam Taseen</span></h2>
-            <p class="text-4xl text-zinc-400 dark:text-zinc-600 mb-4">Undergraduate Mechanical Engineering Student</p>
-            <p class="text-2xl text-zinc-400 dark:text-zinc-600 mb-10">Khulna University of Engineering & Technology (KUET) • CGPA 3.54</p>
-            
-            <p class="max-w-2xl mx-auto text-xl text-zinc-300 dark:text-zinc-700 mb-12">
-                Driven and adaptable with strong leadership, team collaboration & technical skills.<br>
-                Member of <span class="red-accent">Team Kilo Flight</span> (Body & Aerodynamics + Business Management)
-            </p>
+    <section class="hero grid-bg" id="hero">
+        <div class="hero-glow"></div>
+        <div id="particles"></div>
 
-            <div class="flex flex-wrap justify-center gap-6">
-                <a href="about.html" class="bg-red-600 hover:bg-red-700 px-10 py-5 rounded-2xl text-xl font-semibold flex items-center gap-3 transition">Know More About Me</a>
-                <a href="portfolio.html" class="border-2 border-red-600 hover:bg-red-600/10 px-10 py-5 rounded-2xl text-xl font-semibold transition">View My Portfolio →</a>
+        <div class="max-w-6xl mx-auto px-6 py-24 w-full relative z-10">
+            <div class="grid md:grid-cols-2 gap-16 items-center">
+
+                <!-- LEFT -->
+                <div class="reveal" style="transition-delay:0.1s">
+                    <div class="badge mb-6"><span class="dot"></span>Available for Opportunities</div>
+
+                    <h2 class="font-display font-bold leading-tight mb-4" style="font-size:clamp(2.4rem,5vw,3.6rem)">
+                        Hi, I'm<br>
+                        <span style="color:var(--red)">Miftahul Islam</span><br>
+                        Taseen
+                    </h2>
+
+                    <div class="text-xl mb-6" style="color:var(--muted);font-weight:500;min-height:1.8em">
+                        I'm a <span class="typed-text" id="typed"></span><span class="cursor"></span>
+                    </div>
+
+                    <div class="red-divider mb-6"></div>
+
+                    <p class="text-base leading-relaxed mb-8" style="color:var(--muted);max-width:480px">
+                        Driven undergraduate at <strong style="color:var(--text)">KUET</strong> with a passion for engineering, leadership, and turning ideas into reality. Member of <strong style="color:var(--red)">Team Kilo Flight</strong> — Body & Aerodynamics + Business Management.
+                    </p>
+
+                    <!-- SOCIAL LINKS -->
+                    <div class="flex items-center gap-3 mb-8 flex-wrap">
+                        <a href="https://www.linkedin.com/in/miftahul-taseen/" target="_blank" class="social-link" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="https://github.com/miftah118" target="_blank" class="social-link" title="GitHub"><i class="fab fa-github"></i></a>
+                        <a href="https://kuet-me-spark.vercel.app" target="_blank" class="social-link" title="Portfolio App"><i class="fas fa-globe"></i></a>
+                        <a href="mailto:miftahultaseen@gmail.com" class="social-link" title="Email"><i class="fas fa-envelope"></i></a>
+                        <div style="width:1px;height:28px;background:var(--border);margin:0 4px"></div>
+                        <a href="Miftahul_Islam_Taseen_CV.pdf" download class="social-link cv-btn" title="Download CV">
+                            <i class="fas fa-download"></i> CV
+                        </a>
+                    </div>
+
+                    <div class="flex flex-wrap gap-4">
+                        <a href="about.html" class="btn-primary"><i class="fas fa-user"></i> Know More About Me</a>
+                        <a href="portfolio.html" class="btn-outline">View My Work <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+
+                <!-- RIGHT -->
+                <div class="reveal flex flex-col items-center gap-8" style="transition-delay:0.3s">
+                    <div class="profile-ring">
+                        <!-- Replace with: <img src="images/profile.jpg" alt="Miftahul Islam Taseen"> -->
+                        <div class="placeholder"><i class="fas fa-user"></i></div>
+                    </div>
+
+                    <div style="text-align:center">
+                        <p class="font-display font-bold text-lg" style="color:var(--text)">Khulna University of Engineering & Technology</p>
+                        <p style="color:var(--muted);font-size:0.88rem;margin-top:4px">Mechanical Engineering — 2nd Year</p>
+                    </div>
+
+                    <div class="grid grid-cols-3 gap-3 w-full">
+                        <div class="stat-card">
+                            <div class="stat-num" data-target="3.54" data-decimal="2">0</div>
+                            <p style="color:var(--muted);font-size:0.72rem;margin-top:6px;font-weight:700;letter-spacing:0.07em;text-transform:uppercase">CGPA</p>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-num" data-target="6" data-decimal="0">0</div>
+                            <p style="color:var(--muted);font-size:0.72rem;margin-top:6px;font-weight:700;letter-spacing:0.07em;text-transform:uppercase">Clubs</p>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-num" data-target="10" data-suffix="+" data-decimal="0">0</div>
+                            <p style="color:var(--muted);font-size:0.72rem;margin-top:6px;font-weight:700;letter-spacing:0.07em;text-transform:uppercase">Projects</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SCROLL INDICATOR -->
+            <div class="flex flex-col items-center mt-16 gap-2 scroll-indicator" style="color:var(--muted)">
+                <span style="font-family:'Syne',sans-serif;letter-spacing:0.12em;text-transform:uppercase;font-size:0.68rem">Scroll Down</span>
+                <i class="fas fa-chevron-down" style="font-size:0.85rem"></i>
             </div>
         </div>
     </section>
 
-    <footer class="py-8 text-center text-zinc-500 text-sm border-t border-zinc-800 dark:border-zinc-200">
-        © 2026 Miftahul Islam Taseen • Made with pure HTML, CSS & Tailwind
+    <!-- INFO STRIP -->
+    <section class="info-strip reveal">
+        <div class="max-w-6xl mx-auto px-6 py-8">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+                <div class="flex items-center gap-4">
+                    <div style="width:44px;height:44px;border-radius:12px;background:rgba(239,68,68,0.1);border:1px solid rgba(239,68,68,0.2);display:flex;align-items:center;justify-content:center;color:var(--red);flex-shrink:0">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <div>
+                        <p class="font-display font-bold" style="font-size:0.88rem;color:var(--text)">KUET</p>
+                        <p style="color:var(--muted);font-size:0.75rem">Mech. Engineering</p>
+                    </div>
+                </div>
+                <div class="flex items-center gap-4">
+                    <div style="width:44px;height:44px;border-radius:12px;background:rgba(239,68,68,0.1);border:1px solid rgba(239,68,68,0.2);display:flex;align-items:center;justify-content:center;color:var(--red);flex-shrink:0">
+                        <i class="fas fa-plane"></i>
+                    </div>
+                    <div>
+                        <p class="font-display font-bold" style="font-size:0.88rem;color:var(--text)">Team Kilo Flight</p>
+                        <p style="color:var(--muted);font-size:0.75rem">Body & Aerodynamics</p>
+                    </div>
+                </div>
+                <div class="flex items-center gap-4">
+                    <div style="width:44px;height:44px;border-radius:12px;background:rgba(239,68,68,0.1);border:1px solid rgba(239,68,68,0.2);display:flex;align-items:center;justify-content:center;color:var(--red);flex-shrink:0">
+                        <i class="fas fa-cube"></i>
+                    </div>
+                    <div>
+                        <p class="font-display font-bold" style="font-size:0.88rem;color:var(--text)">3D Modelling</p>
+                        <p style="color:var(--muted);font-size:0.75rem">Design & Prototyping</p>
+                    </div>
+                </div>
+                <div class="flex items-center gap-4">
+                    <div style="width:44px;height:44px;border-radius:12px;background:rgba(239,68,68,0.1);border:1px solid rgba(239,68,68,0.2);display:flex;align-items:center;justify-content:center;color:var(--red);flex-shrink:0">
+                        <i class="fas fa-microphone"></i>
+                    </div>
+                    <div>
+                        <p class="font-display font-bold" style="font-size:0.88rem;color:var(--text)">Public Speaking</p>
+                        <p style="color:var(--muted);font-size:0.75rem">Events & Leadership</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="py-8 text-center">
+        <div class="max-w-6xl mx-auto px-6">
+            <p class="font-display font-bold text-lg mb-1" style="color:var(--text)">Miftahul <span style="color:var(--red)">Taseen</span></p>
+            <p style="color:var(--muted);font-size:0.82rem">© 2026 Miftahul Islam Taseen &nbsp;•&nbsp; Built with HTML, CSS & Tailwind</p>
+        </div>
     </footer>
 
     <script>
-        const menuBtn = document.getElementById('mobile-menu-button');
-        const mobileMenu = document.getElementById('mobile-menu');
-        const themeToggle = document.getElementById('theme-toggle');
+        // THEME
         const html = document.documentElement;
-
-        menuBtn.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
-
-        themeToggle.addEventListener('click', () => {
+        const themeBtn = document.getElementById('theme-toggle');
+        html.classList.add('dark');
+        function updateIcon() {
+            themeBtn.innerHTML = html.classList.contains('dark') ? '<i class="fas fa-moon"></i>' : '<i class="fas fa-sun"></i>';
+        }
+        updateIcon();
+        themeBtn.addEventListener('click', () => {
             html.classList.toggle('dark');
-            themeToggle.innerHTML = html.classList.contains('dark') 
-                ? '<i class="fas fa-moon"></i>' 
-                : '<i class="fas fa-sun"></i>';
+            html.classList.toggle('light');
+            updateIcon();
         });
+
+        // MOBILE MENU
+        document.getElementById('mobile-menu-button').addEventListener('click', () => {
+            document.getElementById('mobile-menu').classList.toggle('hidden');
+        });
+
+        // TYPED TEXT
+        const roles = ['Mechanical Engineer', 'CSWA Certified Designer', 'Research Executive', 'Event Organiser', 'Public Speaker', 'Content Creator'];
+        let ri = 0, ci = 0, deleting = false;
+        const typedEl = document.getElementById('typed');
+        function type() {
+            const word = roles[ri];
+            if (!deleting) {
+                typedEl.textContent = word.slice(0, ci + 1);
+                ci++;
+                if (ci === word.length) { deleting = true; setTimeout(type, 1800); return; }
+            } else {
+                typedEl.textContent = word.slice(0, ci - 1);
+                ci--;
+                if (ci === 0) { deleting = false; ri = (ri + 1) % roles.length; }
+            }
+            setTimeout(type, deleting ? 60 : 90);
+        }
+        type();
+
+        // SCROLL REVEAL
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+        // COUNTERS
+        function animateCounter(el) {
+            const target = parseFloat(el.dataset.target);
+            const dec = parseInt(el.dataset.decimal || '0');
+            const suffix = el.dataset.suffix || '';
+            const start = performance.now();
+            (function update(now) {
+                const t = Math.min((now - start) / 1800, 1);
+                const ease = 1 - Math.pow(1 - t, 3);
+                el.textContent = (target * ease).toFixed(dec) + suffix;
+                if (t < 1) requestAnimationFrame(update);
+            })(start);
+        }
+        const cObs = new IntersectionObserver(entries => {
+            entries.forEach(e => {
+                if (e.isIntersecting && !e.target.dataset.counted) {
+                    e.target.dataset.counted = 'y';
+                    animateCounter(e.target);
+                }
+            });
+        }, { threshold: 0.5 });
+        document.querySelectorAll('[data-target]').forEach(el => cObs.observe(el));
+
+        // PARTICLES
+        const pc = document.getElementById('particles');
+        for (let i = 0; i < 18; i++) {
+            const p = document.createElement('div');
+            p.className = 'particle';
+            const s = Math.random() * 10 + 4;
+            p.style.cssText = `width:${s}px;height:${s}px;left:${Math.random()*100}%;animation-duration:${Math.random()*15+12}s;animation-delay:${Math.random()*10}s;opacity:${Math.random()*0.35+0.1}`;
+            pc.appendChild(p);
+        }
     </script>
 </body>
 </html>
