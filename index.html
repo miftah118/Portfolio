@@ -25,7 +25,7 @@
             --muted: #71717a;
         }
 
-        * { box-sizing: border-box; }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
         html { scroll-behavior: smooth; }
 
         body {
@@ -37,7 +37,7 @@
         }
         h1,h2,h3,.font-display { font-family: 'Syne', sans-serif; }
 
-        /* NOISE */
+        /* NOISE OVERLAY */
         body::before {
             content: '';
             position: fixed; inset: 0;
@@ -45,200 +45,424 @@
             pointer-events: none; z-index: 0; opacity: 0.4;
         }
 
-        /* GRID BG */
-        .grid-bg {
-            background-image:
-                linear-gradient(to right, rgba(239,68,68,0.04) 1px, transparent 1px),
-                linear-gradient(to bottom, rgba(239,68,68,0.04) 1px, transparent 1px);
-            background-size: 60px 60px;
-        }
-
-        /* NAVBAR */
+        /* ═══════════════ NAVBAR ═══════════════ */
         nav {
-            background: rgba(9,9,11,0.85);
-            backdrop-filter: blur(20px);
-            border-bottom: 1px solid var(--border);
-            position: sticky; top: 0; z-index: 100;
+            background: rgba(9,9,11,0.6);
+            backdrop-filter: blur(24px) saturate(1.4);
+            -webkit-backdrop-filter: blur(24px) saturate(1.4);
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+            position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+            transition: all 0.4s;
         }
-        html.light nav { background: rgba(255,255,255,0.88); }
+        nav.scrolled { background: rgba(9,9,11,0.92); border-bottom-color: var(--border); }
+        html.light nav { background: rgba(255,255,255,0.7); border-bottom-color: rgba(0,0,0,0.06); }
+        html.light nav.scrolled { background: rgba(255,255,255,0.95); }
 
         .nav-link {
             font-family: 'Syne', sans-serif; font-weight: 600;
-            font-size: 0.88rem; letter-spacing: 0.03em;
-            color: var(--muted); transition: color 0.25s, transform 0.25s;
-            text-decoration: none; position: relative;
+            font-size: 0.82rem; letter-spacing: 0.05em; text-transform: uppercase;
+            color: var(--muted); transition: color 0.3s;
+            text-decoration: none; position: relative; padding: 4px 0;
         }
         .nav-link::after {
-            content: ''; position: absolute; bottom: -4px; left: 0;
-            width: 0; height: 2px; background: var(--red); transition: width 0.25s;
+            content: ''; position: absolute; bottom: -2px; left: 50%; width: 0; height: 2px;
+            background: var(--red); transition: all 0.3s; transform: translateX(-50%);
+            border-radius: 1px;
         }
-        .nav-link:hover { color: var(--text); transform: translateY(-1px); }
+        .nav-link:hover { color: var(--text); }
         .nav-link:hover::after { width: 100%; }
         .nav-link.active { color: var(--red); }
         .nav-link.active::after { width: 100%; }
 
-        /* HERO */
-        .hero { min-height: 100vh; display: flex; align-items: center; position: relative; overflow: hidden; }
-
-        .hero-glow {
-            position: absolute; width: 700px; height: 700px; border-radius: 50%;
-            background: radial-gradient(circle, rgba(239,68,68,0.11) 0%, transparent 70%);
-            top: 50%; left: 50%; transform: translate(-50%,-50%);
-            animation: pulse-glow 4s ease-in-out infinite; pointer-events: none;
-        }
-        @keyframes pulse-glow {
-            0%,100% { transform: translate(-50%,-50%) scale(1); opacity:0.8; }
-            50% { transform: translate(-50%,-50%) scale(1.15); opacity:1; }
+        /* ═══════════════ SCROLL PROGRESS ═══════════════ */
+        #scroll-progress {
+            position: fixed; top: 0; left: 0; height: 3px; z-index: 200;
+            background: linear-gradient(90deg, #ef4444, #f97316, #ef4444);
+            width: 0; transition: none;
+            box-shadow: 0 0 12px rgba(239,68,68,0.5);
         }
 
-        /* PROFILE RING */
+        /* ═══════════════ HERO ═══════════════ */
+        .hero {
+            min-height: 100vh; display: flex; align-items: center;
+            position: relative; overflow: hidden; padding-top: 80px;
+        }
+
+        /* PARTICLE CANVAS */
+        #particle-canvas {
+            position: absolute; inset: 0; z-index: 1; pointer-events: none;
+        }
+
+        /* MOUSE SPOTLIGHT */
+        .mouse-spotlight {
+            position: fixed; width: 600px; height: 600px; border-radius: 50%;
+            background: radial-gradient(circle, rgba(239,68,68,0.07) 0%, transparent 70%);
+            pointer-events: none; z-index: 2;
+            transform: translate(-50%,-50%);
+            transition: opacity 0.3s;
+            opacity: 0;
+        }
+        .mouse-spotlight.active { opacity: 1; }
+        html.light .mouse-spotlight {
+            background: radial-gradient(circle, rgba(239,68,68,0.05) 0%, transparent 70%);
+        }
+
+        /* ANIMATED GRADIENT ORBS */
+        .orb {
+            position: absolute; border-radius: 50%;
+            filter: blur(80px); pointer-events: none; z-index: 1;
+            animation: orb-float 20s ease-in-out infinite;
+        }
+        .orb-1 {
+            width: 500px; height: 500px; top: -10%; right: -5%;
+            background: rgba(239,68,68,0.12);
+            animation-delay: 0s;
+        }
+        .orb-2 {
+            width: 400px; height: 400px; bottom: -15%; left: -10%;
+            background: rgba(239,68,68,0.08);
+            animation-delay: -7s;
+        }
+        .orb-3 {
+            width: 300px; height: 300px; top: 40%; left: 50%;
+            background: rgba(127,29,29,0.1);
+            animation-delay: -14s;
+        }
+        html.light .orb-1 { background: rgba(239,68,68,0.08); }
+        html.light .orb-2 { background: rgba(239,68,68,0.05); }
+        html.light .orb-3 { background: rgba(127,29,29,0.06); }
+        @keyframes orb-float {
+            0%,100% { transform: translate(0,0) scale(1); }
+            25% { transform: translate(30px,-40px) scale(1.1); }
+            50% { transform: translate(-20px,30px) scale(0.95); }
+            75% { transform: translate(40px,20px) scale(1.05); }
+        }
+
+        /* GRID BG with FADE */
+        .grid-bg {
+            position: absolute; inset: 0; z-index: 0;
+            background-image:
+                linear-gradient(to right, rgba(239,68,68,0.03) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(239,68,68,0.03) 1px, transparent 1px);
+            background-size: 60px 60px;
+            mask-image: radial-gradient(ellipse 70% 60% at 50% 50%, black 20%, transparent 100%);
+            -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 50%, black 20%, transparent 100%);
+        }
+
+        /* ═══════════════ HERO TEXT ANIMATIONS ═══════════════ */
+        .hero-entrance { opacity: 0; transform: translateY(40px); }
+        .hero-entrance.in {
+            opacity: 1; transform: translateY(0);
+            transition: opacity 0.8s cubic-bezier(0.16,1,0.3,1), transform 0.8s cubic-bezier(0.16,1,0.3,1);
+        }
+
+        .text-reveal {
+            display: inline-block;
+            clip-path: polygon(0 0, 0 0, 0 100%, 0 100%);
+        }
+        .text-reveal.in {
+            clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+            transition: clip-path 0.9s cubic-bezier(0.77,0,0.175,1);
+        }
+
+        .name-gradient {
+            background: linear-gradient(135deg, #ef4444 0%, #f97316 50%, #ef4444 100%);
+            background-size: 200% auto;
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradient-shift 4s ease-in-out infinite;
+        }
+        @keyframes gradient-shift {
+            0%,100% { background-position: 0% center; }
+            50% { background-position: 100% center; }
+        }
+
+        /* BADGE */
+        .badge {
+            display: inline-flex; align-items: center; gap: 8px;
+            background: rgba(239,68,68,0.08); border: 1px solid rgba(239,68,68,0.2);
+            color: #ef4444; font-size: 0.72rem; font-weight: 700;
+            letter-spacing: 0.1em; text-transform: uppercase;
+            padding: 6px 16px; border-radius: 999px; font-family: 'Syne', sans-serif;
+            position: relative; overflow: hidden;
+        }
+        .badge::before {
+            content: ''; position: absolute; inset: 0;
+            background: linear-gradient(90deg, transparent, rgba(239,68,68,0.15), transparent);
+            animation: badge-shine 3s ease-in-out infinite;
+        }
+        @keyframes badge-shine {
+            0%,100% { transform: translateX(-100%); }
+            50% { transform: translateX(100%); }
+        }
+        .badge .dot {
+            width: 7px; height: 7px; border-radius: 50%; background: #22c55e;
+            box-shadow: 0 0 8px rgba(34,197,94,0.6);
+            animation: pulse-dot 2s ease-in-out infinite;
+        }
+        @keyframes pulse-dot {
+            0%,100% { box-shadow: 0 0 0 0 rgba(34,197,94,0.5); }
+            50% { box-shadow: 0 0 0 6px rgba(34,197,94,0); }
+        }
+
+        /* TYPED */
+        .typed-text { color: var(--red); font-weight: 600; }
+        .cursor {
+            display: inline-block; width: 3px; height: 1.1em;
+            background: var(--red); margin-left: 2px;
+            vertical-align: text-bottom; animation: blink 0.8s step-end infinite;
+        }
+        @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+
+        /* ═══════════════ BUTTONS ═══════════════ */
+        .btn-magnetic { transition: transform 0.2s ease-out; }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #dc2626 0%, #ef4444 50%, #f97316 100%);
+            background-size: 200% auto;
+            color: white; padding: 14px 30px;
+            border-radius: 14px; font-family: 'Syne', sans-serif; font-weight: 700;
+            font-size: 0.9rem; letter-spacing: 0.02em; transition: all 0.4s;
+            text-decoration: none; display: inline-flex; align-items: center; gap: 8px;
+            position: relative; overflow: hidden; border: none; cursor: pointer;
+            box-shadow: 0 4px 15px rgba(239,68,68,0.25);
+        }
+        .btn-primary::before {
+            content: ''; position: absolute; inset: 0;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transform: translateX(-100%); transition: transform 0.6s;
+        }
+        .btn-primary:hover {
+            background-position: right center;
+            box-shadow: 0 8px 30px rgba(239,68,68,0.4);
+            transform: translateY(-3px);
+        }
+        .btn-primary:hover::before { transform: translateX(100%); }
+
+        .btn-outline {
+            border: 1.5px solid rgba(239,68,68,0.3); color: var(--text);
+            padding: 14px 30px; border-radius: 14px; font-family: 'Syne', sans-serif;
+            font-weight: 700; font-size: 0.9rem; letter-spacing: 0.02em;
+            transition: all 0.4s; text-decoration: none;
+            display: inline-flex; align-items: center; gap: 8px;
+            position: relative; overflow: hidden; background: transparent;
+        }
+        .btn-outline::before {
+            content: ''; position: absolute; inset: 0; border-radius: 14px;
+            background: rgba(239,68,68,0.05); transform: scale(0);
+            transition: transform 0.4s cubic-bezier(0.16,1,0.3,1);
+        }
+        .btn-outline:hover { border-color: var(--red); transform: translateY(-3px); }
+        .btn-outline:hover::before { transform: scale(1); }
+        .btn-outline:hover .arrow-icon { transform: translateX(4px); }
+        .arrow-icon { transition: transform 0.3s; display: inline-block; }
+
+        /* ═══════════════ SOCIAL LINKS ═══════════════ */
+        .social-link {
+            width: 44px; height: 44px; border-radius: 12px;
+            border: 1px solid var(--border);
+            display: flex; align-items: center; justify-content: center;
+            color: var(--muted); font-size: 1rem; transition: all 0.35s;
+            text-decoration: none; position: relative; overflow: hidden;
+        }
+        .social-link::before {
+            content: ''; position: absolute; inset: 0;
+            background: linear-gradient(135deg, rgba(239,68,68,0.15), rgba(249,115,22,0.1));
+            opacity: 0; transition: opacity 0.35s;
+        }
+        .social-link:hover { border-color: var(--red); color: var(--red); transform: translateY(-4px) scale(1.05); }
+        .social-link:hover::before { opacity: 1; }
+        .social-link i { position: relative; z-index: 1; }
+        .social-link.cv-btn {
+            width: auto; padding: 0 16px; font-size: 0.78rem;
+            font-family: 'Syne', sans-serif; font-weight: 700; gap: 6px;
+        }
+
+        /* ═══════════════ PROFILE CARD — 3D TILT ═══════════════ */
+        .profile-card {
+            perspective: 1000px;
+        }
+        .profile-card-inner {
+            transition: transform 0.1s ease-out;
+            transform-style: preserve-3d;
+        }
+
         .profile-ring {
-            width: 220px; height: 220px; border-radius: 50%;
+            width: 230px; height: 230px; border-radius: 50%;
             position: relative; margin: 0 auto;
         }
         .profile-ring::before {
-            content: ''; position: absolute; inset: -4px; border-radius: 50%;
-            background: conic-gradient(from 0deg, #ef4444, #7f1d1d, #ef4444, #dc2626, #ef4444);
-            animation: spin-ring 4s linear infinite; z-index: -1;
+            content: ''; position: absolute; inset: -5px; border-radius: 50%;
+            background: conic-gradient(from 0deg, #ef4444, #f97316, #ef4444, #7f1d1d, #ef4444);
+            animation: spin-ring 6s linear infinite; z-index: -1;
+        }
+        .profile-ring::after {
+            content: ''; position: absolute; inset: -20px; border-radius: 50%;
+            border: 1px dashed rgba(239,68,68,0.15);
+            animation: spin-ring-reverse 20s linear infinite;
         }
         @keyframes spin-ring { to { transform: rotate(360deg); } }
+        @keyframes spin-ring-reverse { to { transform: rotate(-360deg); } }
+
         .profile-ring img, .profile-ring .placeholder {
             width: 100%; height: 100%; border-radius: 50%;
             object-fit: cover; border: 4px solid var(--bg);
         }
         .profile-ring .placeholder {
-            background: linear-gradient(135deg, #1c1c1e, #2c2c2e);
+            background: linear-gradient(135deg, #18181b, #27272a);
             display: flex; align-items: center; justify-content: center;
-            font-size: 5rem; color: var(--muted);
+            font-size: 5rem; color: rgba(239,68,68,0.3);
         }
         html.light .profile-ring .placeholder { background: linear-gradient(135deg, #e4e4e7, #d4d4d8); }
-        html.light .profile-ring::before { border: none; }
 
-        /* TYPED */
-        .typed-text { color: var(--red); }
-        .cursor {
-            display: inline-block; width: 3px; height: 1em;
-            background: var(--red); margin-left: 3px;
-            vertical-align: text-bottom; animation: blink 0.8s step-end infinite;
+        /* ORBIT ELEMENTS */
+        .orbit-container {
+            position: absolute; inset: -40px; animation: spin-ring-reverse 25s linear infinite;
         }
-        @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+        .orbit-dot {
+            position: absolute; width: 36px; height: 36px; border-radius: 10px;
+            background: var(--surface); border: 1px solid var(--border);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 0.85rem; color: var(--red);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            animation: spin-ring 25s linear infinite;
+        }
+        .orbit-dot:nth-child(1) { top: 0; left: 50%; transform: translateX(-50%); }
+        .orbit-dot:nth-child(2) { bottom: 0; left: 50%; transform: translateX(-50%); }
+        .orbit-dot:nth-child(3) { top: 50%; right: 0; transform: translateY(-50%); }
+        .orbit-dot:nth-child(4) { top: 50%; left: 0; transform: translateY(-50%); }
 
-        /* BADGE */
-        .badge {
-            display: inline-flex; align-items: center; gap: 6px;
-            background: rgba(239,68,68,0.1); border: 1px solid rgba(239,68,68,0.25);
-            color: #ef4444; font-size: 0.75rem; font-weight: 700;
-            letter-spacing: 0.07em; text-transform: uppercase;
-            padding: 5px 14px; border-radius: 999px; font-family: 'Syne', sans-serif;
-        }
-        .badge .dot {
-            width: 6px; height: 6px; border-radius: 50%; background: #ef4444;
-            animation: pulse-dot 1.5s ease-in-out infinite;
-        }
-        @keyframes pulse-dot {
-            0%,100%{box-shadow:0 0 0 0 rgba(239,68,68,0.6)}
-            50%{box-shadow:0 0 0 5px rgba(239,68,68,0)}
-        }
-
-        /* BUTTONS */
-        .btn-primary {
-            background: var(--red); color: white; padding: 13px 28px;
-            border-radius: 12px; font-family: 'Syne', sans-serif; font-weight: 700;
-            font-size: 0.92rem; letter-spacing: 0.02em; transition: all 0.25s;
-            text-decoration: none; display: inline-flex; align-items: center; gap: 8px;
+        /* ═══════════════ STAT CARDS ═══════════════ */
+        .stat-card {
+            background: rgba(255,255,255,0.03);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.06);
+            border-radius: 16px; padding: 22px 16px; text-align: center;
+            transition: all 0.4s cubic-bezier(0.16,1,0.3,1);
             position: relative; overflow: hidden;
         }
-        .btn-primary::after {
-            content: ''; position: absolute; inset: 0;
-            background: rgba(255,255,255,0.1);
-            transform: translateX(-110%) skewX(-15deg); transition: transform 0.4s;
-        }
-        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(239,68,68,0.35); }
-        .btn-primary:hover::after { transform: translateX(110%) skewX(-15deg); }
-
-        .btn-outline {
-            border: 1.5px solid rgba(239,68,68,0.45); color: var(--text);
-            padding: 13px 28px; border-radius: 12px; font-family: 'Syne', sans-serif;
-            font-weight: 700; font-size: 0.92rem; letter-spacing: 0.02em;
-            transition: all 0.25s; text-decoration: none;
-            display: inline-flex; align-items: center; gap: 8px;
-        }
-        .btn-outline:hover { background: rgba(239,68,68,0.08); border-color: var(--red); transform: translateY(-2px); }
-
-        /* STAT CARDS */
-        .stat-card {
-            background: var(--surface); border: 1px solid var(--border);
-            border-radius: 14px; padding: 20px 16px; text-align: center;
-            transition: all 0.3s; position: relative; overflow: hidden;
-        }
+        html.light .stat-card { background: rgba(0,0,0,0.02); border-color: rgba(0,0,0,0.06); }
         .stat-card::before {
             content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
             background: linear-gradient(90deg, transparent, var(--red), transparent);
-            transform: scaleX(0); transition: transform 0.4s;
+            transform: scaleX(0); transition: transform 0.5s;
         }
-        .stat-card:hover { transform: translateY(-4px); border-color: rgba(239,68,68,0.3); }
+        .stat-card::after {
+            content: ''; position: absolute; inset: 0;
+            background: radial-gradient(circle at 50% 0%, rgba(239,68,68,0.08), transparent 70%);
+            opacity: 0; transition: opacity 0.4s;
+        }
+        .stat-card:hover { transform: translateY(-6px); border-color: rgba(239,68,68,0.25); }
         .stat-card:hover::before { transform: scaleX(1); }
+        .stat-card:hover::after { opacity: 1; }
         .stat-num {
-            font-family: 'Syne', sans-serif; font-size: 2rem;
-            font-weight: 800; color: var(--red); line-height: 1;
+            font-family: 'Syne', sans-serif; font-size: 2.2rem;
+            font-weight: 800; line-height: 1; position: relative; z-index: 1;
+            background: linear-gradient(135deg, #ef4444, #f97316);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
-        /* SOCIAL LINKS */
-        .social-link {
-            width: 42px; height: 42px; border-radius: 10px;
-            border: 1px solid var(--border);
+        /* ═══════════════ SCROLL INDICATOR ═══════════════ */
+        .scroll-mouse {
+            width: 26px; height: 40px; border-radius: 13px;
+            border: 2px solid var(--muted); position: relative;
+            display: flex; justify-content: center;
+        }
+        .scroll-mouse::before {
+            content: ''; width: 4px; height: 8px; border-radius: 2px;
+            background: var(--red); position: absolute; top: 8px;
+            animation: scroll-wheel 2s ease-in-out infinite;
+        }
+        @keyframes scroll-wheel {
+            0% { transform: translateY(0); opacity: 1; }
+            50% { transform: translateY(8px); opacity: 0.3; }
+            100% { transform: translateY(0); opacity: 1; }
+        }
+
+        /* ═══════════════ INFO STRIP ═══════════════ */
+        .info-strip {
+            border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+            background: var(--surface); position: relative; overflow: hidden;
+        }
+        .info-strip::before {
+            content: ''; position: absolute; inset: 0;
+            background: linear-gradient(90deg, transparent, rgba(239,68,68,0.03), transparent);
+            animation: strip-glow 6s ease-in-out infinite;
+        }
+        @keyframes strip-glow {
+            0%,100% { transform: translateX(-100%); }
+            50% { transform: translateX(100%); }
+        }
+        .info-card {
+            display: flex; align-items: center; gap: 16px;
+            padding: 12px 16px; border-radius: 14px; transition: all 0.35s;
+        }
+        .info-card:hover { background: rgba(239,68,68,0.04); transform: translateY(-2px); }
+        .info-card .icon-wrap {
+            width: 46px; height: 46px; border-radius: 13px;
+            background: linear-gradient(135deg, rgba(239,68,68,0.12), rgba(249,115,22,0.08));
+            border: 1px solid rgba(239,68,68,0.15);
             display: flex; align-items: center; justify-content: center;
-            color: var(--muted); font-size: 1rem; transition: all 0.25s; text-decoration: none;
+            color: var(--red); flex-shrink: 0; font-size: 1rem;
+            transition: all 0.35s;
         }
-        .social-link:hover { border-color: var(--red); color: var(--red); background: rgba(239,68,68,0.08); transform: translateY(-3px); }
-        .social-link.cv-btn { width: auto; padding: 0 14px; font-size: 0.8rem; font-family: 'Syne', sans-serif; font-weight: 700; gap: 6px; }
+        .info-card:hover .icon-wrap {
+            transform: scale(1.1) rotate(-5deg);
+            box-shadow: 0 4px 16px rgba(239,68,68,0.2);
+        }
 
-        /* SCROLL REVEAL */
+        /* MISC */
         .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.7s ease, transform 0.7s ease; }
         .reveal.visible { opacity: 1; transform: translateY(0); }
-
-        /* PARTICLES */
-        .particle {
-            position: absolute; border-radius: 50%;
-            background: rgba(239,68,68,0.15);
-            animation: float-particle linear infinite; pointer-events: none;
-        }
-        @keyframes float-particle {
-            0%{transform:translateY(100vh) rotate(0deg);opacity:0}
-            10%{opacity:1} 90%{opacity:0.5}
-            100%{transform:translateY(-100px) rotate(720deg);opacity:0}
-        }
-
-        /* SCROLL INDICATOR */
-        .scroll-indicator { animation: bounce-down 2s ease-in-out infinite; }
-        @keyframes bounce-down { 0%,100%{transform:translateY(0)} 50%{transform:translateY(8px)} }
-
-        /* INFO STRIP */
-        .info-strip { border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); background: var(--surface); }
-
-        /* THEME TOGGLE */
+        .red-divider { width: 48px; height: 3px; background: linear-gradient(90deg, var(--red), #f97316); border-radius: 2px; }
         #theme-toggle {
             width: 40px; height: 40px; border-radius: 10px;
             border: 1px solid var(--border); background: transparent;
-            color: var(--muted); font-size: 1rem; cursor: pointer; transition: all 0.25s;
+            color: var(--muted); font-size: 1rem; cursor: pointer; transition: all 0.3s;
             display: flex; align-items: center; justify-content: center;
         }
-        #theme-toggle:hover { border-color: var(--red); color: var(--red); }
-
-        /* MOBILE MENU */
-        #mobile-menu { background: rgba(9,9,11,0.98); backdrop-filter: blur(20px); border-top: 1px solid var(--border); }
+        #theme-toggle:hover { border-color: var(--red); color: var(--red); transform: rotate(15deg); }
+        #mobile-menu { background: rgba(9,9,11,0.98); backdrop-filter: blur(24px); border-top: 1px solid var(--border); }
         html.light #mobile-menu { background: rgba(255,255,255,0.98); }
-
         footer { border-top: 1px solid var(--border); background: var(--surface); }
 
-        /* DIVIDER */
-        .red-divider { width: 48px; height: 3px; background: var(--red); border-radius: 2px; }
+        /* CUSTOM CURSOR (desktop only) */
+        @media (hover: hover) {
+            .custom-cursor {
+                width: 20px; height: 20px; border: 2px solid var(--red);
+                border-radius: 50%; position: fixed; pointer-events: none;
+                z-index: 9999; transition: width 0.2s, height 0.2s, border-color 0.2s;
+                transform: translate(-50%,-50%);
+                mix-blend-mode: difference;
+            }
+            .custom-cursor.hovering {
+                width: 50px; height: 50px; border-color: rgba(239,68,68,0.5);
+                background: rgba(239,68,68,0.08);
+            }
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .orbit-container { display: none; }
+            .profile-ring { width: 180px; height: 180px; }
+            .custom-cursor { display: none !important; }
+        }
     </style>
 </head>
 <body>
 
+    <!-- SCROLL PROGRESS -->
+    <div id="scroll-progress"></div>
+
+    <!-- CUSTOM CURSOR -->
+    <div class="custom-cursor" id="custom-cursor"></div>
+
+    <!-- MOUSE SPOTLIGHT -->
+    <div class="mouse-spotlight" id="spotlight"></div>
+
     <!-- NAVBAR -->
-    <nav>
+    <nav id="navbar">
         <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
             <a href="index.html" class="font-display text-2xl font-bold tracking-tight" style="text-decoration:none;color:var(--text)">
                 Miftahul <span style="color:var(--red)">Taseen</span>
@@ -270,126 +494,143 @@
         </div>
     </nav>
 
-    <!-- HERO -->
-    <section class="hero grid-bg" id="hero">
-        <div class="hero-glow"></div>
-        <div id="particles"></div>
+    <!-- ═══════════════ HERO ═══════════════ -->
+    <section class="hero" id="hero">
+        <div class="grid-bg"></div>
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+        <div class="orb orb-3"></div>
+        <canvas id="particle-canvas"></canvas>
 
-        <div class="max-w-6xl mx-auto px-6 py-24 w-full relative z-10">
+        <div class="max-w-6xl mx-auto px-6 py-20 w-full relative" style="z-index:10">
             <div class="grid md:grid-cols-2 gap-16 items-center">
 
-                <!-- LEFT -->
-                <div class="reveal" style="transition-delay:0.1s">
-                    <div class="badge mb-6"><span class="dot"></span>Available for Opportunities</div>
-
-                    <h2 class="font-display font-bold leading-tight mb-4" style="font-size:clamp(2.4rem,5vw,3.6rem)">
-                        Hi, I'm<br>
-                        <span style="color:var(--red)">Miftahul Islam</span><br>
-                        Taseen
-                    </h2>
-
-                    <div class="text-xl mb-6" style="color:var(--muted);font-weight:500;min-height:1.8em">
-                        I'm a <span class="typed-text" id="typed"></span><span class="cursor"></span>
+                <!-- LEFT — TEXT -->
+                <div>
+                    <div class="hero-entrance" data-delay="0">
+                        <div class="badge mb-7"><span class="dot"></span>Available for Opportunities</div>
                     </div>
 
-                    <div class="red-divider mb-6"></div>
+                    <div class="hero-entrance" data-delay="100">
+                        <h1 class="font-display font-extrabold leading-[1.08] mb-5" style="font-size:clamp(2.6rem,5.5vw,4rem)">
+                            <span class="text-reveal" data-delay="200">Hi, I'm</span><br>
+                            <span class="text-reveal name-gradient" data-delay="400">Miftahul Islam</span><br>
+                            <span class="text-reveal" data-delay="600">Taseen</span>
+                        </h1>
+                    </div>
 
-                    <p class="text-base leading-relaxed mb-8" style="color:var(--muted);max-width:480px">
-                        Driven undergraduate at <strong style="color:var(--text)">KUET</strong> with a passion for engineering, leadership, and turning ideas into reality. Member of <strong style="color:var(--red)">Team Kilo Flight</strong> — Body & Aerodynamics + Business Management.
-                    </p>
+                    <div class="hero-entrance" data-delay="300">
+                        <div class="text-xl mb-6" style="color:var(--muted);font-weight:500;min-height:1.8em">
+                            I'm a <span class="typed-text" id="typed"></span><span class="cursor"></span>
+                        </div>
+                    </div>
+
+                    <div class="hero-entrance" data-delay="400">
+                        <div class="red-divider mb-6"></div>
+                    </div>
+
+                    <div class="hero-entrance" data-delay="500">
+                        <p class="text-base leading-relaxed mb-8" style="color:var(--muted);max-width:480px">
+                            CSWA-certified undergraduate at <strong style="color:var(--text)">KUET</strong> with a passion for engineering, leadership, and turning ideas into reality. Junior Executive of <strong style="color:var(--red)">Team Kilo Flight</strong> — Body & Aerodynamics + Business Management.
+                        </p>
+                    </div>
 
                     <!-- SOCIAL LINKS -->
-                    <div class="flex items-center gap-3 mb-8 flex-wrap">
-                        <a href="https://www.linkedin.com/in/miftahul-taseen/" target="_blank" class="social-link" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
-                        <a href="https://github.com/miftah118" target="_blank" class="social-link" title="GitHub"><i class="fab fa-github"></i></a>
-                        <a href="https://kuet-me-spark.vercel.app" target="_blank" class="social-link" title="Portfolio App"><i class="fas fa-globe"></i></a>
-                        <a href="mailto:miftahultaseen@gmail.com" class="social-link" title="Email"><i class="fas fa-envelope"></i></a>
-                        <div style="width:1px;height:28px;background:var(--border);margin:0 4px"></div>
-                        <a href="Miftahul_Islam_Taseen_CV.pdf" download class="social-link cv-btn" title="Download CV">
-                            <i class="fas fa-download"></i> CV
-                        </a>
+                    <div class="hero-entrance" data-delay="600">
+                        <div class="flex items-center gap-3 mb-8 flex-wrap">
+                            <a href="https://www.linkedin.com/in/miftahul-taseen/" target="_blank" class="social-link" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                            <a href="https://github.com/miftah118" target="_blank" class="social-link" title="GitHub"><i class="fab fa-github"></i></a>
+                            <a href="https://kuet-me-spark.vercel.app" target="_blank" class="social-link" title="Portfolio App"><i class="fas fa-globe"></i></a>
+                            <a href="mailto:miftahultaseen@gmail.com" class="social-link" title="Email"><i class="fas fa-envelope"></i></a>
+                            <div style="width:1px;height:28px;background:var(--border);margin:0 4px"></div>
+                            <a href="Miftahul_Islam_Taseen_CV.pdf" download class="social-link cv-btn" title="Download CV">
+                                <i class="fas fa-download"></i> CV
+                            </a>
+                        </div>
                     </div>
 
-                    <div class="flex flex-wrap gap-4">
-                        <a href="about.html" class="btn-primary"><i class="fas fa-user"></i> Know More About Me</a>
-                        <a href="portfolio.html" class="btn-outline">View My Work <i class="fas fa-arrow-right"></i></a>
+                    <div class="hero-entrance" data-delay="700">
+                        <div class="flex flex-wrap gap-4">
+                            <a href="about.html" class="btn-primary btn-magnetic"><i class="fas fa-user"></i> Know More About Me</a>
+                            <a href="portfolio.html" class="btn-outline btn-magnetic">View My Work <i class="fas fa-arrow-right arrow-icon"></i></a>
+                        </div>
                     </div>
                 </div>
 
-                <!-- RIGHT -->
-                <div class="reveal flex flex-col items-center gap-8" style="transition-delay:0.3s">
-                    <div class="profile-ring">
-                        <!-- Replace with: <img src="images/profile.jpg" alt="Miftahul Islam Taseen"> -->
-                        <div class="placeholder"><i class="fas fa-user"></i></div>
-                    </div>
-
-                    <div style="text-align:center">
-                        <p class="font-display font-bold text-lg" style="color:var(--text)">Khulna University of Engineering & Technology</p>
-                        <p style="color:var(--muted);font-size:0.88rem;margin-top:4px">Mechanical Engineering — 2nd Year</p>
-                    </div>
-
-                    <div class="grid grid-cols-3 gap-3 w-full">
-                        <div class="stat-card">
-                            <div class="stat-num" data-target="3.54" data-decimal="2">0</div>
-                            <p style="color:var(--muted);font-size:0.72rem;margin-top:6px;font-weight:700;letter-spacing:0.07em;text-transform:uppercase">CGPA</p>
+                <!-- RIGHT — PROFILE CARD -->
+                <div class="hero-entrance profile-card" data-delay="200">
+                    <div class="profile-card-inner flex flex-col items-center gap-8" id="profile-tilt">
+                        <div class="profile-ring" style="position:relative">
+                            <!-- Replace with: <img src="images/profile.jpg" alt="Miftahul Islam Taseen"> -->
+                            <div class="placeholder"><i class="fas fa-user"></i></div>
+                            <div class="orbit-container">
+                                <div class="orbit-dot"><i class="fas fa-cube"></i></div>
+                                <div class="orbit-dot"><i class="fas fa-code"></i></div>
+                                <div class="orbit-dot"><i class="fas fa-bolt"></i></div>
+                                <div class="orbit-dot"><i class="fas fa-pen-nib"></i></div>
+                            </div>
                         </div>
-                        <div class="stat-card">
-                            <div class="stat-num" data-target="6" data-decimal="0">0</div>
-                            <p style="color:var(--muted);font-size:0.72rem;margin-top:6px;font-weight:700;letter-spacing:0.07em;text-transform:uppercase">Clubs</p>
+
+                        <div style="text-align:center">
+                            <p class="font-display font-bold text-lg" style="color:var(--text)">Khulna University of Engineering & Technology</p>
+                            <p style="color:var(--muted);font-size:0.85rem;margin-top:4px">B.Sc. Mechanical Engineering — Batch 2K22</p>
                         </div>
-                        <div class="stat-card">
-                            <div class="stat-num" data-target="10" data-suffix="+" data-decimal="0">0</div>
-                            <p style="color:var(--muted);font-size:0.72rem;margin-top:6px;font-weight:700;letter-spacing:0.07em;text-transform:uppercase">Projects</p>
+
+                        <div class="grid grid-cols-3 gap-3 w-full">
+                            <div class="stat-card">
+                                <div class="stat-num" data-target="3.54" data-decimal="2">0</div>
+                                <p style="color:var(--muted);font-size:0.7rem;margin-top:6px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;position:relative;z-index:1">CGPA</p>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-num" data-target="6" data-decimal="0">0</div>
+                                <p style="color:var(--muted);font-size:0.7rem;margin-top:6px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;position:relative;z-index:1">Clubs</p>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-num" data-target="10" data-suffix="+" data-decimal="0">0</div>
+                                <p style="color:var(--muted);font-size:0.7rem;margin-top:6px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;position:relative;z-index:1">Projects</p>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
 
             <!-- SCROLL INDICATOR -->
-            <div class="flex flex-col items-center mt-16 gap-2 scroll-indicator" style="color:var(--muted)">
-                <span style="font-family:'Syne',sans-serif;letter-spacing:0.12em;text-transform:uppercase;font-size:0.68rem">Scroll Down</span>
-                <i class="fas fa-chevron-down" style="font-size:0.85rem"></i>
+            <div class="flex flex-col items-center mt-20 gap-3" style="color:var(--muted)">
+                <div class="scroll-mouse"></div>
+                <span style="font-family:'Syne',sans-serif;letter-spacing:0.15em;text-transform:uppercase;font-size:0.65rem">Scroll</span>
             </div>
         </div>
     </section>
 
-    <!-- INFO STRIP -->
+    <!-- ═══════════════ INFO STRIP ═══════════════ -->
     <section class="info-strip reveal">
-        <div class="max-w-6xl mx-auto px-6 py-8">
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
-                <div class="flex items-center gap-4">
-                    <div style="width:44px;height:44px;border-radius:12px;background:rgba(239,68,68,0.1);border:1px solid rgba(239,68,68,0.2);display:flex;align-items:center;justify-content:center;color:var(--red);flex-shrink:0">
-                        <i class="fas fa-graduation-cap"></i>
-                    </div>
+        <div class="max-w-6xl mx-auto px-6 py-6">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div class="info-card">
+                    <div class="icon-wrap"><i class="fas fa-graduation-cap"></i></div>
                     <div>
                         <p class="font-display font-bold" style="font-size:0.88rem;color:var(--text)">KUET</p>
                         <p style="color:var(--muted);font-size:0.75rem">Mech. Engineering</p>
                     </div>
                 </div>
-                <div class="flex items-center gap-4">
-                    <div style="width:44px;height:44px;border-radius:12px;background:rgba(239,68,68,0.1);border:1px solid rgba(239,68,68,0.2);display:flex;align-items:center;justify-content:center;color:var(--red);flex-shrink:0">
-                        <i class="fas fa-plane"></i>
-                    </div>
+                <div class="info-card">
+                    <div class="icon-wrap"><i class="fas fa-bolt"></i></div>
                     <div>
                         <p class="font-display font-bold" style="font-size:0.88rem;color:var(--text)">Team Kilo Flight</p>
-                        <p style="color:var(--muted);font-size:0.75rem">Body & Aerodynamics</p>
+                        <p style="color:var(--muted);font-size:0.75rem">Formula Student EV</p>
                     </div>
                 </div>
-                <div class="flex items-center gap-4">
-                    <div style="width:44px;height:44px;border-radius:12px;background:rgba(239,68,68,0.1);border:1px solid rgba(239,68,68,0.2);display:flex;align-items:center;justify-content:center;color:var(--red);flex-shrink:0">
-                        <i class="fas fa-cube"></i>
-                    </div>
+                <div class="info-card">
+                    <div class="icon-wrap"><i class="fas fa-cube"></i></div>
                     <div>
-                        <p class="font-display font-bold" style="font-size:0.88rem;color:var(--text)">3D Modelling</p>
-                        <p style="color:var(--muted);font-size:0.75rem">Design & Prototyping</p>
+                        <p class="font-display font-bold" style="font-size:0.88rem;color:var(--text)">CSWA Certified</p>
+                        <p style="color:var(--muted);font-size:0.75rem">SolidWorks / CAD</p>
                     </div>
                 </div>
-                <div class="flex items-center gap-4">
-                    <div style="width:44px;height:44px;border-radius:12px;background:rgba(239,68,68,0.1);border:1px solid rgba(239,68,68,0.2);display:flex;align-items:center;justify-content:center;color:var(--red);flex-shrink:0">
-                        <i class="fas fa-microphone"></i>
-                    </div>
+                <div class="info-card">
+                    <div class="icon-wrap"><i class="fas fa-microphone"></i></div>
                     <div>
-                        <p class="font-display font-bold" style="font-size:0.88rem;color:var(--text)">Public Speaking</p>
+                        <p class="font-display font-bold" style="font-size:0.88rem;color:var(--text)">Public Speaker</p>
                         <p style="color:var(--muted);font-size:0.75rem">Events & Leadership</p>
                     </div>
                 </div>
@@ -401,12 +642,12 @@
     <footer class="py-8 text-center">
         <div class="max-w-6xl mx-auto px-6">
             <p class="font-display font-bold text-lg mb-1" style="color:var(--text)">Miftahul <span style="color:var(--red)">Taseen</span></p>
-            <p style="color:var(--muted);font-size:0.82rem">© 2026 Miftahul Islam Taseen &nbsp;•&nbsp; Built with HTML, CSS & Tailwind</p>
+            <p style="color:var(--muted);font-size:0.82rem">&copy; 2026 Miftahul Islam Taseen &nbsp;&bull;&nbsp; Built with HTML, CSS & Tailwind</p>
         </div>
     </footer>
 
     <script>
-        // THEME
+    (function() {
         const html = document.documentElement;
         const themeBtn = document.getElementById('theme-toggle');
         html.classList.add('dark');
@@ -420,12 +661,84 @@
             updateIcon();
         });
 
-        // MOBILE MENU
         document.getElementById('mobile-menu-button').addEventListener('click', () => {
             document.getElementById('mobile-menu').classList.toggle('hidden');
         });
 
-        // TYPED TEXT
+        // ═══ SCROLL PROGRESS ═══
+        const progressBar = document.getElementById('scroll-progress');
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            const h = document.documentElement.scrollHeight - window.innerHeight;
+            if (h > 0) progressBar.style.width = (window.scrollY / h * 100) + '%';
+            navbar.classList.toggle('scrolled', window.scrollY > 50);
+        });
+
+        // ═══ CUSTOM CURSOR ═══
+        const cursor = document.getElementById('custom-cursor');
+        let cx = 0, cy = 0, tx = 0, ty = 0;
+        if (window.matchMedia('(hover: hover)').matches) {
+            document.addEventListener('mousemove', e => { tx = e.clientX; ty = e.clientY; });
+            (function raf() {
+                cx += (tx - cx) * 0.15;
+                cy += (ty - cy) * 0.15;
+                cursor.style.left = cx + 'px';
+                cursor.style.top = cy + 'px';
+                requestAnimationFrame(raf);
+            })();
+            document.querySelectorAll('a, button, .btn-primary, .btn-outline, .social-link').forEach(el => {
+                el.addEventListener('mouseenter', () => cursor.classList.add('hovering'));
+                el.addEventListener('mouseleave', () => cursor.classList.remove('hovering'));
+            });
+        } else {
+            cursor.style.display = 'none';
+        }
+
+        // ═══ MOUSE SPOTLIGHT ═══
+        const spotlight = document.getElementById('spotlight');
+        document.addEventListener('mousemove', e => {
+            spotlight.style.left = e.clientX + 'px';
+            spotlight.style.top = e.clientY + 'px';
+            spotlight.classList.add('active');
+        });
+
+        // ═══ MAGNETIC BUTTONS ═══
+        document.querySelectorAll('.btn-magnetic').forEach(btn => {
+            btn.addEventListener('mousemove', e => {
+                const rect = btn.getBoundingClientRect();
+                const x = e.clientX - rect.left - rect.width / 2;
+                const y = e.clientY - rect.top - rect.height / 2;
+                btn.style.transform = `translate(${x*0.15}px, ${y*0.15}px)`;
+            });
+            btn.addEventListener('mouseleave', () => { btn.style.transform = ''; });
+        });
+
+        // ═══ 3D TILT ON PROFILE CARD ═══
+        const tiltEl = document.getElementById('profile-tilt');
+        if (tiltEl && window.matchMedia('(hover: hover)').matches) {
+            const card = tiltEl.closest('.profile-card');
+            card.addEventListener('mousemove', e => {
+                const rect = card.getBoundingClientRect();
+                const x = (e.clientX - rect.left) / rect.width - 0.5;
+                const y = (e.clientY - rect.top) / rect.height - 0.5;
+                tiltEl.style.transform = `rotateY(${x*12}deg) rotateX(${-y*12}deg)`;
+            });
+            card.addEventListener('mouseleave', () => { tiltEl.style.transform = ''; });
+        }
+
+        // ═══ HERO ENTRANCE ANIMATIONS ═══
+        setTimeout(() => {
+            document.querySelectorAll('.hero-entrance').forEach(el => {
+                const delay = parseInt(el.dataset.delay || 0);
+                setTimeout(() => el.classList.add('in'), delay);
+            });
+            document.querySelectorAll('.text-reveal').forEach(el => {
+                const delay = parseInt(el.dataset.delay || 0);
+                setTimeout(() => el.classList.add('in'), delay + 200);
+            });
+        }, 200);
+
+        // ═══ TYPED TEXT ═══
         const roles = ['Mechanical Engineer', 'CSWA Certified Designer', 'Research Executive', 'Event Organiser', 'Public Speaker', 'Content Creator'];
         let ri = 0, ci = 0, deleting = false;
         const typedEl = document.getElementById('typed');
@@ -434,31 +747,31 @@
             if (!deleting) {
                 typedEl.textContent = word.slice(0, ci + 1);
                 ci++;
-                if (ci === word.length) { deleting = true; setTimeout(type, 1800); return; }
+                if (ci === word.length) { deleting = true; setTimeout(type, 2200); return; }
             } else {
                 typedEl.textContent = word.slice(0, ci - 1);
                 ci--;
                 if (ci === 0) { deleting = false; ri = (ri + 1) % roles.length; }
             }
-            setTimeout(type, deleting ? 60 : 90);
+            setTimeout(type, deleting ? 50 : 80);
         }
-        type();
+        setTimeout(type, 1200);
 
-        // SCROLL REVEAL
+        // ═══ SCROLL REVEAL ═══
         const observer = new IntersectionObserver(entries => {
             entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
         }, { threshold: 0.1 });
         document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-        // COUNTERS
+        // ═══ COUNTERS ═══
         function animateCounter(el) {
             const target = parseFloat(el.dataset.target);
             const dec = parseInt(el.dataset.decimal || '0');
             const suffix = el.dataset.suffix || '';
             const start = performance.now();
             (function update(now) {
-                const t = Math.min((now - start) / 1800, 1);
-                const ease = 1 - Math.pow(1 - t, 3);
+                const t = Math.min((now - start) / 2000, 1);
+                const ease = 1 - Math.pow(1 - t, 4);
                 el.textContent = (target * ease).toFixed(dec) + suffix;
                 if (t < 1) requestAnimationFrame(update);
             })(start);
@@ -473,15 +786,95 @@
         }, { threshold: 0.5 });
         document.querySelectorAll('[data-target]').forEach(el => cObs.observe(el));
 
-        // PARTICLES
-        const pc = document.getElementById('particles');
-        for (let i = 0; i < 18; i++) {
-            const p = document.createElement('div');
-            p.className = 'particle';
-            const s = Math.random() * 10 + 4;
-            p.style.cssText = `width:${s}px;height:${s}px;left:${Math.random()*100}%;animation-duration:${Math.random()*15+12}s;animation-delay:${Math.random()*10}s;opacity:${Math.random()*0.35+0.1}`;
-            pc.appendChild(p);
+        // ═══ INTERACTIVE PARTICLE NETWORK ═══
+        const canvas = document.getElementById('particle-canvas');
+        const ctx = canvas.getContext('2d');
+        let W, H, mouse = { x: -999, y: -999 };
+        const particles = [];
+        const PARTICLE_COUNT = 60;
+        const CONNECT_DIST = 140;
+        const MOUSE_DIST = 180;
+
+        function resize() {
+            W = canvas.width = canvas.offsetWidth;
+            H = canvas.height = canvas.offsetHeight;
         }
+        resize();
+        window.addEventListener('resize', resize);
+
+        document.addEventListener('mousemove', e => {
+            const rect = canvas.getBoundingClientRect();
+            mouse.x = e.clientX - rect.left;
+            mouse.y = e.clientY - rect.top;
+        });
+
+        for (let i = 0; i < PARTICLE_COUNT; i++) {
+            particles.push({
+                x: Math.random() * W,
+                y: Math.random() * H,
+                vx: (Math.random() - 0.5) * 0.6,
+                vy: (Math.random() - 0.5) * 0.6,
+                r: Math.random() * 2 + 1,
+                o: Math.random() * 0.5 + 0.2,
+            });
+        }
+
+        function drawParticles() {
+            ctx.clearRect(0, 0, W, H);
+            const isLight = html.classList.contains('light');
+            const dotColor = isLight ? '180,29,29' : '239,68,68';
+            const lineColor = isLight ? '180,29,29' : '239,68,68';
+
+            for (let i = 0; i < particles.length; i++) {
+                const p = particles[i];
+                p.x += p.vx; p.y += p.vy;
+                if (p.x < 0 || p.x > W) p.vx *= -1;
+                if (p.y < 0 || p.y > H) p.vy *= -1;
+
+                const dx = mouse.x - p.x, dy = mouse.y - p.y;
+                const dist = Math.sqrt(dx * dx + dy * dy);
+                if (dist < MOUSE_DIST) {
+                    const force = (MOUSE_DIST - dist) / MOUSE_DIST * 0.02;
+                    p.vx -= dx * force;
+                    p.vy -= dy * force;
+                }
+
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(${dotColor},${p.o})`;
+                ctx.fill();
+
+                for (let j = i + 1; j < particles.length; j++) {
+                    const q = particles[j];
+                    const ddx = p.x - q.x, ddy = p.y - q.y;
+                    const d = Math.sqrt(ddx * ddx + ddy * ddy);
+                    if (d < CONNECT_DIST) {
+                        ctx.beginPath();
+                        ctx.moveTo(p.x, p.y);
+                        ctx.lineTo(q.x, q.y);
+                        ctx.strokeStyle = `rgba(${lineColor},${0.12 * (1 - d / CONNECT_DIST)})`;
+                        ctx.lineWidth = 0.6;
+                        ctx.stroke();
+                    }
+                }
+            }
+            requestAnimationFrame(drawParticles);
+        }
+        drawParticles();
+
+        // ═══ NAVBAR SCROLL HIDE/SHOW ═══
+        let lastScroll = 0;
+        window.addEventListener('scroll', () => {
+            const curr = window.scrollY;
+            if (curr > lastScroll && curr > 300) {
+                navbar.style.transform = 'translateY(-100%)';
+            } else {
+                navbar.style.transform = 'translateY(0)';
+            }
+            lastScroll = curr;
+        });
+        navbar.style.transition = 'transform 0.3s, background 0.4s, border-bottom-color 0.4s';
+    })();
     </script>
 </body>
 </html>
