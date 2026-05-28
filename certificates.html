@@ -1,300 +1,172 @@
 <!DOCTYPE html>
-<html lang="en" class="dark">
+<html lang="en" data-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Certificates | Miftahul Islam Taseen</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Certificates — Miftahul Islam Taseen</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
-    <style>
-        :root{--red:#ef4444;--bg:#09090b;--surface:#111113;--card:rgba(255,255,255,0.03);--border:#27272a;--border-glass:rgba(255,255,255,0.07);--text:#fafafa;--muted:#71717a;}
-        html.light{--bg:#f9f9f9;--surface:#ffffff;--card:rgba(0,0,0,0.02);--border:#e4e4e7;--border-glass:rgba(0,0,0,0.07);--text:#18181b;--muted:#71717a;}
-        *{box-sizing:border-box;}html{scroll-behavior:smooth;}
-        body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);transition:background 0.4s,color 0.4s;overflow-x:hidden;}
-        h1,h2,h3,.font-display{font-family:'Syne',sans-serif;}
-        body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");pointer-events:none;z-index:0;opacity:0.4;}
-        nav{background:rgba(9,9,11,0.85);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100;}
-        html.light nav{background:rgba(255,255,255,0.88);}
-        .nav-link{font-family:'Syne',sans-serif;font-weight:600;font-size:0.88rem;letter-spacing:0.03em;color:var(--muted);transition:color 0.25s,transform 0.25s;text-decoration:none;position:relative;}
-        .nav-link::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:2px;background:var(--red);transition:width 0.25s;}
-        .nav-link:hover{color:var(--text);transform:translateY(-1px);}
-        .nav-link:hover::after,.nav-link.active::after{width:100%;}
-        .nav-link.active{color:var(--red);}
-        #theme-toggle{width:40px;height:40px;border-radius:10px;border:1px solid var(--border);background:transparent;color:var(--muted);font-size:1rem;cursor:pointer;transition:all 0.25s;display:flex;align-items:center;justify-content:center;}
-        #theme-toggle:hover{border-color:var(--red);color:var(--red);}
-        #mobile-menu{background:rgba(9,9,11,0.98);backdrop-filter:blur(20px);border-top:1px solid var(--border);}
-        html.light #mobile-menu{background:rgba(255,255,255,0.98);}
-        .glass-card{background:var(--card);backdrop-filter:blur(12px);border:1px solid var(--border-glass);border-radius:20px;overflow:hidden;transition:all 0.35s ease;}
-        .glass-card:hover{border-color:rgba(239,68,68,0.3);transform:translateY(-6px);box-shadow:0 28px 56px rgba(0,0,0,0.4);}
-        .page-hero{background:linear-gradient(135deg,rgba(239,68,68,0.06) 0%,transparent 60%);border-bottom:1px solid var(--border);padding:72px 0 56px;position:relative;overflow:hidden;}
-        .page-hero::after{content:'';position:absolute;top:-100px;right:-100px;width:400px;height:400px;border-radius:50%;background:radial-gradient(circle,rgba(239,68,68,0.08) 0%,transparent 70%);pointer-events:none;}
-        .red-divider{width:48px;height:3px;background:var(--red);border-radius:2px;}
-        .reveal{opacity:0;transform:translateY(28px);transition:opacity 0.7s ease,transform 0.7s ease;}
-        .reveal.visible{opacity:1;transform:translateY(0);}
-
-        .cert-img-placeholder{width:100%;height:180px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;background:linear-gradient(135deg,#1a1a1c,#252527);color:var(--muted);}
-        .cert-img-placeholder i{font-size:2.5rem;opacity:0.35;}
-        .cert-img img{width:100%;height:180px;object-fit:cover;display:block;}
-
-        .tag{display:inline-flex;align-items:center;gap:4px;background:rgba(239,68,68,0.08);border:1px solid rgba(239,68,68,0.18);color:var(--text);font-size:0.72rem;font-weight:600;padding:3px 9px;border-radius:6px;}
-
-        .icon-box{width:48px;height:48px;border-radius:14px;flex-shrink:0;background:rgba(239,68,68,0.1);border:1px solid rgba(239,68,68,0.2);display:flex;align-items:center;justify-content:center;color:var(--red);font-size:1.1rem;}
-        footer{border-top:1px solid var(--border);background:var(--surface);}
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <div class="cursor-dot"></div>
+    <div class="cursor-ring"></div>
+    <div class="page-transition"></div>
 
-    <!-- NAVBAR -->
-    <nav>
-        <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
-            <a href="index.html" class="font-display text-2xl font-bold tracking-tight" style="text-decoration:none;color:var(--text)">Miftahul <span style="color:var(--red)">Taseen</span></a>
-            <div class="hidden md:flex gap-7 items-center">
-                <a href="index.html" class="nav-link">Home</a>
-                <a href="about.html" class="nav-link">About</a>
-                <a href="experience.html" class="nav-link">Experience</a>
-                <a href="skills.html" class="nav-link">Skills</a>
-                <a href="portfolio.html" class="nav-link">Portfolio</a>
-                <a href="certificates.html" class="nav-link active">Certificates</a>
-                <a href="contact.html" class="nav-link">Contact</a>
+    <nav class="navbar">
+        <div class="navbar-inner">
+            <a href="index.html" class="navbar-logo"><span class="dot"></span> Miftahul Taseen</a>
+            <div class="navbar-links">
+                <a href="index.html">Home</a><a href="about.html">About</a><a href="experience.html">Experience</a>
+                <a href="skills.html">Skills</a><a href="portfolio.html">Portfolio</a><a href="certificates.html">Certificates</a><a href="contact.html">Contact</a>
             </div>
-            <div class="flex items-center gap-3">
-                <button id="theme-toggle"><i class="fas fa-moon"></i></button>
-                <button id="mobile-menu-button" class="md:hidden" style="background:transparent;border:none;color:var(--text);font-size:1.4rem;cursor:pointer"><i class="fas fa-bars"></i></button>
-            </div>
-        </div>
-        <div id="mobile-menu" class="hidden md:hidden">
-            <div class="flex flex-col px-6 py-6 gap-5">
-                <a href="index.html" class="nav-link" style="font-size:1rem">Home</a>
-                <a href="about.html" class="nav-link" style="font-size:1rem">About</a>
-                <a href="experience.html" class="nav-link" style="font-size:1rem">Experience</a>
-                <a href="skills.html" class="nav-link" style="font-size:1rem">Skills</a>
-                <a href="portfolio.html" class="nav-link" style="font-size:1rem">Portfolio</a>
-                <a href="certificates.html" class="nav-link active" style="font-size:1rem">Certificates</a>
-                <a href="contact.html" class="nav-link" style="font-size:1rem">Contact</a>
+            <div class="navbar-right">
+                <button class="theme-toggle" aria-label="Toggle theme"><i class="fas fa-sun"></i></button>
+                <button class="menu-toggle" aria-label="Open menu"><span></span><span></span><span></span></button>
             </div>
         </div>
     </nav>
+    <div class="mobile-menu">
+        <div class="mobile-menu-label">Navigation</div>
+        <a href="index.html">Home</a><a href="about.html">About</a><a href="experience.html">Experience</a>
+        <a href="skills.html">Skills</a><a href="portfolio.html">Portfolio</a><a href="certificates.html">Certificates</a><a href="contact.html">Contact</a>
+    </div>
 
-    <!-- PAGE HERO -->
-    <section class="page-hero">
-        <div class="max-w-6xl mx-auto px-6 relative z-10">
-            <div class="reveal">
-                <p class="font-display text-sm font-bold tracking-widest uppercase mb-3" style="color:var(--red)">Recognition & Achievements</p>
-                <h1 class="font-display font-bold mb-4" style="font-size:clamp(2.5rem,5vw,3.8rem);line-height:1.1">Certificates</h1>
-                <div class="red-divider mb-4"></div>
-                <p style="color:var(--muted);font-size:1.05rem;max-width:520px;line-height:1.7">Official recognitions, course completions, competition awards, and milestones I've earned.</p>
+    <!-- ═══ HEADER ═══ -->
+    <section class="section" style="padding-top:clamp(140px,18vh,200px)">
+        <div class="container">
+            <div class="section-header">
+                <span class="label reveal-up">06 / Certificates</span>
+                <h1 class="heading-lg mt-16 reveal-up">Awards &amp;<br><span class="accent-text italic">Credentials</span></h1>
             </div>
         </div>
     </section>
 
-    <!-- MAIN -->
-    <main class="max-w-6xl mx-auto px-6 py-20 relative z-10">
-
-        <!-- ACADEMIC / COMPETITION -->
-        <div class="reveal mb-16">
-            <div class="flex items-center gap-3 mb-8">
-                <div class="icon-box"><i class="fas fa-trophy"></i></div>
-                <div>
-                    <p class="font-display text-xs font-bold tracking-widest uppercase" style="color:var(--red)">Academic & Competition</p>
-                    <h2 class="font-display font-bold text-2xl">Awards & Recognition</h2>
-                </div>
+    <!-- ═══ AWARDS ═══ -->
+    <section class="section" style="padding-top:0">
+        <div class="container">
+            <div class="section-header reveal-up">
+                <span class="label">Awards &amp; Recognitions</span>
             </div>
-            <div class="red-divider mb-10"></div>
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-
-                <div class="glass-card">
-                    <div class="cert-img-placeholder"><i class="fas fa-medal"></i></div>
-                    <div class="p-5">
-                        <div class="flex flex-wrap gap-2 mb-3"><span class="tag">Competition</span><span class="tag">SolidWorks</span></div>
-                        <h3 class="font-display font-bold text-base mb-1" style="color:var(--text)">2nd Runners-Up — SolidWorks Workshop</h3>
-                        <p style="color:var(--red);font-size:0.82rem;font-weight:600">CADers, KUET</p>
-                        <p style="color:var(--muted);font-size:0.78rem;margin-top:2px">2025</p>
-                        <p style="color:var(--muted);font-size:0.83rem;margin-top:8px;line-height:1.6">Awarded 2nd Runners-Up in a competitive SolidWorks design workshop organised by CADers KUET, demonstrating proficiency in 3D CAD modelling.</p>
-                    </div>
+            <div class="grid-3 stagger-group">
+                <div class="cert-card stagger-item card-tilt">
+                    <div class="cert-badge award"><i class="fas fa-medal"></i> Award</div>
+                    <div class="cert-title">2nd Runners-Up &mdash; SolidWorks Workshop 2025</div>
+                    <div class="cert-issuer">CADers KUET</div>
+                    <div class="cert-meta">2025</div>
                 </div>
-
-                <div class="glass-card" style="transition-delay:0.05s">
-                    <div class="cert-img-placeholder"><i class="fas fa-award"></i></div>
-                    <div class="p-5">
-                        <div class="flex flex-wrap gap-2 mb-3"><span class="tag">Semi-Finalist</span><span class="tag">Tech</span></div>
-                        <h3 class="font-display font-bold text-base mb-1" style="color:var(--text)">Semi-Finalist — BitFest & Mindspark24</h3>
-                        <p style="color:var(--red);font-size:0.82rem;font-weight:600">BitFest / Mindspark</p>
-                        <p style="color:var(--muted);font-size:0.78rem;margin-top:2px">2024</p>
-                        <p style="color:var(--muted);font-size:0.83rem;margin-top:8px;line-height:1.6">Reached the semi-final stage of BitFest & Mindspark24 — a national-level technology and innovation competition.</p>
-                    </div>
+                <div class="cert-card stagger-item card-tilt">
+                    <div class="cert-badge award"><i class="fas fa-trophy"></i> Award</div>
+                    <div class="cert-title">Semi-Finalist &mdash; BitFest &amp; Mindspark24</div>
+                    <div class="cert-issuer">National Competition</div>
+                    <div class="cert-meta">2024</div>
                 </div>
-
-                <div class="glass-card" style="transition-delay:0.1s">
-                    <div class="cert-img-placeholder"><i class="fas fa-globe"></i></div>
-                    <div class="p-5">
-                        <div class="flex flex-wrap gap-2 mb-3"><span class="tag">MUN</span><span class="tag">UNDP Award</span></div>
-                        <h3 class="font-display font-bold text-base mb-1" style="color:var(--text)">Honorable Mention — DRMC MUN 2022</h3>
-                        <p style="color:var(--red);font-size:0.82rem;font-weight:600">UNDP Award</p>
-                        <p style="color:var(--muted);font-size:0.78rem;margin-top:2px">2022</p>
-                        <p style="color:var(--muted);font-size:0.83rem;margin-top:8px;line-height:1.6">Received an Honorable Mention (UNDP Award) at DRMC MUN 2022 for outstanding performance in Model United Nations debate and diplomacy.</p>
-                    </div>
+                <div class="cert-card stagger-item card-tilt">
+                    <div class="cert-badge award"><i class="fas fa-award"></i> Award</div>
+                    <div class="cert-title">Honorable Mention &mdash; UNDP Award</div>
+                    <div class="cert-issuer">DRMC MUN 2022</div>
+                    <div class="cert-meta">2022</div>
                 </div>
-
             </div>
         </div>
+    </section>
 
-        <!-- PROFESSIONAL CERTIFICATIONS -->
-        <div class="reveal mb-16">
-            <div class="flex items-center gap-3 mb-8">
-                <div class="icon-box"><i class="fas fa-id-badge"></i></div>
-                <div>
-                    <p class="font-display text-xs font-bold tracking-widest uppercase" style="color:var(--red)">Professional</p>
-                    <h2 class="font-display font-bold text-2xl">Industry Certifications</h2>
-                </div>
+    <!-- ═══ INDUSTRY CERTIFICATIONS ═══ -->
+    <section class="section" style="padding-top:0">
+        <div class="container">
+            <div class="section-header reveal-up">
+                <span class="label">Industry Certifications</span>
             </div>
-            <div class="red-divider mb-10"></div>
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-
-                <div class="glass-card">
-                    <div class="cert-img-placeholder"><i class="fas fa-cube"></i></div>
-                    <div class="p-5">
-                        <div class="flex flex-wrap gap-2 mb-3"><span class="tag">CSWA</span><span class="tag">SolidWorks</span></div>
-                        <h3 class="font-display font-bold text-base mb-1" style="color:var(--text)">Certified SolidWorks Associate (CSWA)</h3>
-                        <p style="color:var(--red);font-size:0.82rem;font-weight:600">Dassault Systèmes — CADers KUET</p>
-                        <p style="color:var(--muted);font-size:0.78rem;margin-top:2px">2025</p>
-                        <p style="color:var(--muted);font-size:0.83rem;margin-top:8px;line-height:1.6">Industry-standard certification validating proficiency in 3D CAD modelling, part design, and assembly using SolidWorks.</p>
-                    </div>
+            <div class="grid-2 stagger-group">
+                <div class="cert-card stagger-item card-tilt">
+                    <div class="cert-badge industry"><i class="fas fa-certificate"></i> Industry</div>
+                    <div class="cert-title">CSWA &mdash; Certified SolidWorks Associate</div>
+                    <div class="cert-issuer">CADers KUET</div>
+                    <div class="cert-meta">SolidWorks Certification Program</div>
                 </div>
-
-                <div class="glass-card" style="transition-delay:0.05s">
-                    <div class="cert-img-placeholder"><i class="fas fa-leaf"></i></div>
-                    <div class="p-5">
-                        <div class="flex flex-wrap gap-2 mb-3"><span class="tag">CSWA-SA</span><span class="tag">Sustainability</span></div>
-                        <h3 class="font-display font-bold text-base mb-1" style="color:var(--text)">CSWA — Sustainability Associate</h3>
-                        <p style="color:var(--red);font-size:0.82rem;font-weight:600">Dassault Systèmes</p>
-                        <p style="color:var(--muted);font-size:0.78rem;margin-top:2px">Jul 2025</p>
-                        <p style="color:var(--muted);font-size:0.83rem;margin-top:8px;line-height:1.6">Certification validating knowledge of sustainable design principles and life-cycle assessment using SolidWorks Sustainability tools.</p>
-                    </div>
+                <div class="cert-card stagger-item card-tilt">
+                    <div class="cert-badge industry"><i class="fas fa-certificate"></i> Industry</div>
+                    <div class="cert-title">CSWA-SA &mdash; Sustainability Associate</div>
+                    <div class="cert-issuer">Dassault Syst&egrave;mes</div>
+                    <div class="cert-meta">Jul 2025 &bull; Credential ID: C-TLVQABXYEF</div>
                 </div>
-
-                <div class="glass-card" style="transition-delay:0.1s">
-                    <div class="cert-img-placeholder"><i class="fab fa-python"></i></div>
-                    <div class="p-5">
-                        <div class="flex flex-wrap gap-2 mb-3"><span class="tag">Python</span><span class="tag">Kaggle</span></div>
-                        <h3 class="font-display font-bold text-base mb-1" style="color:var(--text)">Python Programming</h3>
-                        <p style="color:var(--red);font-size:0.82rem;font-weight:600">Kaggle</p>
-                        <p style="color:var(--muted);font-size:0.78rem;margin-top:2px">2024</p>
-                        <p style="color:var(--muted);font-size:0.83rem;margin-top:8px;line-height:1.6">Completed Kaggle's Python certification covering core programming concepts, data manipulation, and applied scripting for data science.</p>
-                    </div>
-                </div>
-
             </div>
         </div>
+    </section>
 
-        <!-- ONLINE COURSES -->
-        <div class="reveal mb-16">
-            <div class="flex items-center gap-3 mb-8">
-                <div class="icon-box"><i class="fas fa-graduation-cap"></i></div>
-                <div>
-                    <p class="font-display text-xs font-bold tracking-widest uppercase" style="color:var(--red)">Online Learning</p>
-                    <h2 class="font-display font-bold text-2xl">Course Certificates</h2>
+    <!-- ═══ COURSE CERTIFICATES ═══ -->
+    <section class="section" style="padding-top:0">
+        <div class="container">
+            <div class="section-header reveal-up">
+                <span class="label">Course Certificates</span>
+            </div>
+            <div class="grid-2 stagger-group">
+                <div class="cert-card stagger-item card-tilt">
+                    <div class="cert-badge course"><i class="fas fa-graduation-cap"></i> Course</div>
+                    <div class="cert-title">Python</div>
+                    <div class="cert-issuer">Kaggle</div>
+                    <div class="cert-meta">Programming Fundamentals</div>
+                </div>
+                <div class="cert-card stagger-item card-tilt">
+                    <div class="cert-badge course"><i class="fas fa-graduation-cap"></i> Course</div>
+                    <div class="cert-title">MATLAB Onramp</div>
+                    <div class="cert-issuer">MathWorks</div>
+                    <div class="cert-meta">MATLAB Fundamentals</div>
+                </div>
+                <div class="cert-card stagger-item card-tilt">
+                    <div class="cert-badge course"><i class="fas fa-graduation-cap"></i> Course</div>
+                    <div class="cert-title">Microsoft 365 Copilot</div>
+                    <div class="cert-issuer">Microsoft</div>
+                    <div class="cert-meta">AI Productivity Tools</div>
+                </div>
+                <div class="cert-card stagger-item card-tilt">
+                    <div class="cert-badge course"><i class="fas fa-graduation-cap"></i> Course</div>
+                    <div class="cert-title">Spoken English</div>
+                    <div class="cert-issuer">New Era Training Center</div>
+                    <div class="cert-meta">Language Proficiency</div>
                 </div>
             </div>
-            <div class="red-divider mb-10"></div>
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
 
-                <div class="glass-card">
-                    <div class="cert-img-placeholder"><i class="fas fa-square-root-alt"></i></div>
-                    <div class="p-5">
-                        <div class="flex flex-wrap gap-2 mb-3"><span class="tag">MATLAB</span><span class="tag">MathWorks</span></div>
-                        <h3 class="font-display font-bold text-base mb-1" style="color:var(--text)">MATLAB Onramp</h3>
-                        <p style="color:var(--red);font-size:0.82rem;font-weight:600">MathWorks</p>
-                        <p style="color:var(--muted);font-size:0.83rem;margin-top:8px;line-height:1.6">Introductory MATLAB certification covering scripting, matrix operations, data visualisation, and engineering problem-solving.</p>
-                    </div>
-                </div>
-
-                <div class="glass-card" style="transition-delay:0.05s">
-                    <div class="cert-img-placeholder"><i class="fab fa-microsoft"></i></div>
-                    <div class="p-5">
-                        <div class="flex flex-wrap gap-2 mb-3"><span class="tag">Microsoft 365</span><span class="tag">AI Tools</span></div>
-                        <h3 class="font-display font-bold text-base mb-1" style="color:var(--text)">Microsoft 365 Copilot</h3>
-                        <p style="color:var(--red);font-size:0.82rem;font-weight:600">Microsoft</p>
-                        <p style="color:var(--muted);font-size:0.83rem;margin-top:8px;line-height:1.6">Certified in Microsoft 365 Copilot — leveraging AI-assisted tools for productivity, document generation, and workflow automation.</p>
-                    </div>
-                </div>
-
-                <div class="glass-card" style="transition-delay:0.1s">
-                    <div class="cert-img-placeholder"><i class="fas fa-microphone-alt"></i></div>
-                    <div class="p-5">
-                        <div class="flex flex-wrap gap-2 mb-3"><span class="tag">Communication</span></div>
-                        <h3 class="font-display font-bold text-base mb-1" style="color:var(--text)">Spoken English</h3>
-                        <p style="color:var(--red);font-size:0.82rem;font-weight:600">New Era Training Center</p>
-                        <p style="color:var(--muted);font-size:0.83rem;margin-top:8px;line-height:1.6">Professional spoken English certification focused on fluency, presentation skills, and communication in professional and academic contexts.</p>
-                    </div>
-                </div>
-
+            <!-- Note -->
+            <div class="reveal-up mt-48" style="text-align:center">
+                <p class="body-sm" style="color:var(--text-muted)">
+                    <i class="fas fa-info-circle" style="color:var(--accent);margin-right:6px"></i>
+                    PDF copies of certificates available on request via the <a href="contact.html" style="color:var(--accent);text-decoration:underline">Contact page</a>.
+                </p>
             </div>
         </div>
+    </section>
 
-        <!-- PARTICIPATION / WORKSHOP -->
-        <div class="reveal">
-            <div class="flex items-center gap-3 mb-8">
-                <div class="icon-box"><i class="fas fa-users"></i></div>
+    <!-- ═══ NEXT PAGE ═══ -->
+    <section class="next-page">
+        <div class="container">
+            <a href="contact.html">
                 <div>
-                    <p class="font-display text-xs font-bold tracking-widest uppercase" style="color:var(--red)">Participation</p>
-                    <h2 class="font-display font-bold text-2xl">Workshops & Events</h2>
+                    <div class="next-label">Next</div>
+                    <div class="next-title">Contact</div>
                 </div>
-            </div>
-            <div class="red-divider mb-10"></div>
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-
-                <div class="glass-card">
-                    <div class="cert-img-placeholder"><i class="fas fa-flask"></i></div>
-                    <div class="p-5">
-                        <div class="flex flex-wrap gap-2 mb-3"><span class="tag">Poster Presentation</span><span class="tag">IGNITION'26</span></div>
-                        <h3 class="font-display font-bold text-base mb-1" style="color:var(--text)">IGNITION'26 — National Engineering Festival</h3>
-                        <p style="color:var(--red);font-size:0.82rem;font-weight:600">KUET</p>
-                        <p style="color:var(--muted);font-size:0.78rem;margin-top:2px">2025</p>
-                        <p style="color:var(--muted);font-size:0.83rem;margin-top:8px;line-height:1.6">Presented a poster on Deep Learning-Based Rice Leaf Disease Detection. Also competed in the LFR competition and volunteered for the 3 Minute Thesis event.</p>
-                    </div>
-                </div>
-
-                <div class="glass-card" style="transition-delay:0.05s">
-                    <div class="cert-img-placeholder"><i class="fas fa-gavel"></i></div>
-                    <div class="p-5">
-                        <div class="flex flex-wrap gap-2 mb-3"><span class="tag">MUN</span><span class="tag">USG Admin</span></div>
-                        <h3 class="font-display font-bold text-base mb-1" style="color:var(--text)">NDCMUN 2022</h3>
-                        <p style="color:var(--red);font-size:0.82rem;font-weight:600">Notre Dame College MUN</p>
-                        <p style="color:var(--muted);font-size:0.78rem;margin-top:2px">2022</p>
-                        <p style="color:var(--muted);font-size:0.83rem;margin-top:8px;line-height:1.6">Served as Under-Secretary-General (Admin) for NDCMUN 2022 — coordinating delegates, managing logistics, and overseeing committee operations.</p>
-                    </div>
-                </div>
-
-                <div class="glass-card flex flex-col items-center justify-center text-center p-8" style="border-style:dashed;min-height:280px;transition-delay:0.1s">
-                    <i class="fas fa-plus-circle text-4xl mb-4" style="color:var(--red);opacity:0.4"></i>
-                    <p class="font-display font-bold" style="color:var(--muted)">More coming soon</p>
-                    <p style="color:var(--muted);font-size:0.78rem;margin-top:6px">Upload certificate images to display here</p>
-                </div>
-
-            </div>
+                <div class="next-arrow"><i class="fas fa-arrow-right"></i></div>
+            </a>
+            <div class="next-num">07</div>
         </div>
+    </section>
 
-    </main>
-
-    <!-- FOOTER -->
-    <footer class="py-8 text-center">
-        <div class="max-w-6xl mx-auto px-6">
-            <p class="font-display font-bold text-lg mb-1" style="color:var(--text)">Miftahul <span style="color:var(--red)">Taseen</span></p>
-            <p style="color:var(--muted);font-size:0.82rem">© 2026 Miftahul Islam Taseen &nbsp;•&nbsp; Built with HTML, CSS & Tailwind</p>
+    <footer class="footer">
+        <div class="container footer-inner">
+            <div class="footer-copy">&copy; 2026 Miftahul Islam Taseen</div>
+            <div class="footer-links">
+                <a href="https://www.linkedin.com/in/miftahul-taseen/" target="_blank">LinkedIn</a>
+                <a href="https://github.com/miftah118" target="_blank">GitHub</a>
+                <a href="mailto:miftahultaseen@gmail.com">Email</a>
+            </div>
         </div>
     </footer>
 
-    <script>
-        const html=document.documentElement;
-        const themeBtn=document.getElementById('theme-toggle');
-        html.classList.add('dark');
-        function updateIcon(){themeBtn.innerHTML=html.classList.contains('dark')?'<i class="fas fa-moon"></i>':'<i class="fas fa-sun"></i>';}
-        updateIcon();
-        themeBtn.addEventListener('click',()=>{html.classList.toggle('dark');html.classList.toggle('light');updateIcon();});
-        document.getElementById('mobile-menu-button').addEventListener('click',()=>{document.getElementById('mobile-menu').classList.toggle('hidden');});
-        const observer=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');});},{threshold:0.08});
-        document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
-    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script src="https://unpkg.com/lenis@1.1.18/dist/lenis.min.js"></script>
+    <script src="shared.js"></script>
 </body>
 </html>
