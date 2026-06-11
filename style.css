@@ -474,8 +474,154 @@ h1, h2, h3, h4, .font-display {
   display: flex;
   align-items: center;
   position: relative;
-  padding: clamp(120px, 15vh, 180px) 0 var(--section-pad);
+  padding: clamp(120px, 15vh, 180px) 0 clamp(60px, 8vw, 100px);
   overflow: hidden;
+}
+
+/* Meta row above the name */
+.hero-meta {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  padding-bottom: 20px;
+  margin-bottom: clamp(32px, 5vw, 56px);
+  border-bottom: 1px solid var(--border);
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.hero-meta .status {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--text-secondary);
+}
+
+.hero-meta .status-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: #4ade80;
+  flex-shrink: 0;
+}
+
+/* Oversized editorial name */
+.hero-name {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(3.2rem, 10.5vw, 8.5rem);
+  line-height: 0.98;
+  letter-spacing: -0.035em;
+  margin-bottom: clamp(36px, 5vw, 64px);
+}
+
+.hero-name em {
+  font-style: italic;
+  font-weight: 500;
+  color: var(--accent);
+}
+
+/* Intro + aside two-column row */
+.hero-row {
+  display: grid;
+  grid-template-columns: 1.35fr 1fr;
+  gap: clamp(32px, 6vw, 96px);
+  align-items: start;
+}
+
+.hero-intro p {
+  font-size: clamp(1rem, 1.25vw, 1.18rem);
+  line-height: 1.75;
+  color: var(--text-secondary);
+  max-width: 540px;
+}
+
+.hero-intro strong {
+  color: var(--text);
+  font-weight: 500;
+}
+
+.hero-actions {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  flex-wrap: wrap;
+  margin-top: 36px;
+}
+
+.hero-link-plain {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  border-bottom: 1px solid var(--border-solid);
+  padding-bottom: 3px;
+  transition: color 0.3s, border-color 0.3s;
+}
+
+.hero-link-plain:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+}
+
+/* Right-hand aside facts */
+.hero-aside {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding-top: 6px;
+}
+
+.hero-aside-block {
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--border);
+}
+
+.hero-aside-block:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.hero-aside-block .label-muted {
+  display: block;
+  margin-bottom: 8px;
+}
+
+.hero-aside-block p {
+  font-size: 0.92rem;
+  line-height: 1.55;
+  color: var(--text);
+  font-weight: 450;
+}
+
+.hero-aside-links {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.hero-aside-links a {
+  color: var(--text-secondary);
+  transition: color 0.3s;
+}
+
+.hero-aside-links a:hover {
+  color: var(--accent);
+}
+
+.hero-aside-links .slash {
+  color: var(--text-muted);
+  opacity: 0.5;
 }
 
 .hero-content {
@@ -522,7 +668,7 @@ h1, h2, h3, h4, .font-display {
   color: var(--text-muted);
 }
 
-/* Text reveal mask */
+/* Text reveal mask — hidden state only when GSAP is confirmed loaded */
 .text-reveal {
   overflow: hidden;
   display: block;
@@ -530,30 +676,16 @@ h1, h2, h3, h4, .font-display {
 
 .text-reveal .reveal-inner {
   display: block;
+}
+
+html.has-anim .text-reveal .reveal-inner {
   transform: translateY(110%);
 }
 
-/* Typing effect */
-.typed-wrap {
-  font-family: var(--font-body);
-  font-size: clamp(1rem, 1.5vw, 1.3rem);
-  color: var(--text-secondary);
-  font-weight: 400;
-  min-height: 1.8em;
-}
-
-.typed-cursor {
-  display: inline-block;
-  width: 2px;
-  height: 1.1em;
-  background: var(--accent);
-  margin-left: 2px;
-  vertical-align: text-bottom;
-  animation: blink 0.8s step-end infinite;
-}
-
-@keyframes blink {
-  50% { opacity: 0; }
+/* Hero entrance elements — hidden only when animations can run */
+html.has-anim .hero-fade {
+  opacity: 0;
+  transform: translateY(20px);
 }
 
 /* Hero stats bar */
@@ -663,51 +795,6 @@ h1, h2, h3, h4, .font-display {
   transform: translateY(-2px);
 }
 
-/* Hero scroll indicator */
-.scroll-indicator {
-  position: absolute;
-  bottom: 40px;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 10px;
-  z-index: 2;
-}
-
-.scroll-indicator .mouse {
-  width: 22px; height: 34px;
-  border: 1.5px solid var(--text-muted);
-  border-radius: 12px;
-  position: relative;
-}
-
-.scroll-indicator .mouse::after {
-  content: '';
-  position: absolute;
-  top: 6px; left: 50%;
-  width: 2px; height: 6px;
-  background: var(--accent);
-  border-radius: 2px;
-  transform: translateX(-50%);
-  animation: scroll-wheel 1.8s ease-in-out infinite;
-}
-
-@keyframes scroll-wheel {
-  0%   { opacity: 1; transform: translateX(-50%) translateY(0); }
-  100% { opacity: 0; transform: translateX(-50%) translateY(10px); }
-}
-
-.scroll-indicator span {
-  font-family: var(--font-mono);
-  font-size: 0.6rem;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  color: var(--text-muted);
-}
-
-
 /* ═══ SECTIONS ═══ */
 section {
   position: relative;
@@ -738,17 +825,18 @@ section {
   margin: 16px 0;
 }
 
-/* Reveal animations (GSAP applies these) */
-.reveal-up {
+/* Reveal animations — hidden states gated so content is never
+   trapped invisible if a CDN fails to load */
+html.has-anim .reveal-up {
   opacity: 0;
   transform: translateY(40px);
 }
 
-.reveal-fade {
+html.has-anim .reveal-fade {
   opacity: 0;
 }
 
-.stagger-item {
+html.has-anim .stagger-item {
   opacity: 0;
   transform: translateY(30px);
 }
@@ -1600,9 +1688,15 @@ section {
   .contact-grid { grid-template-columns: 1fr; }
 }
 
+@media (max-width: 900px) {
+  .hero-row { grid-template-columns: 1fr; gap: 40px; }
+  .hero-aside { flex-direction: column; }
+}
+
 @media (max-width: 768px) {
   .navbar-links { display: none; }
   .menu-toggle { display: flex; }
+  .hero-meta { flex-direction: column; gap: 8px; }
 
   .grid-2 { grid-template-columns: 1fr; }
   .grid-3 { grid-template-columns: 1fr; }
@@ -1655,10 +1749,12 @@ section {
   }
 
   .marquee-track { animation: none; }
-  .reveal-up, .reveal-fade, .stagger-item {
+  html.has-anim .reveal-up,
+  html.has-anim .reveal-fade,
+  html.has-anim .stagger-item,
+  html.has-anim .hero-fade {
     opacity: 1;
     transform: none;
   }
-  .text-reveal .reveal-inner { transform: none; }
-  .scroll-indicator .mouse::after { animation: none; }
+  html.has-anim .text-reveal .reveal-inner { transform: none; }
 }

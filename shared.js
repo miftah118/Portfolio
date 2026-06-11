@@ -6,12 +6,24 @@
 (function () {
   'use strict';
 
+  /* ═══ PROGRESSIVE ENHANCEMENT GATE ═══
+     Hidden initial states (reveals, hero entrance) only apply when
+     GSAP is confirmed present — if a CDN fails, content stays visible. */
+  if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') {
+    var pre = document.getElementById('preloader');
+    if (pre) pre.remove();
+    return;
+  }
+
+  document.documentElement.classList.add('has-anim');
+
   /* ═══ REGISTER GSAP PLUGINS ═══ */
   gsap.registerPlugin(ScrollTrigger);
 
   /* ═══ PRELOADER ═══ */
   const preloader = document.getElementById('preloader');
   const hasVisited = sessionStorage.getItem('preloaderDone');
+  var pageInitialized = false;
 
   function runPreloader() {
     if (!preloader) { initPage(); return; }
@@ -22,12 +34,24 @@
       return;
     }
 
+    /* Failsafe — never trap the page behind the preloader
+       (throttled tabs, paused rAF, etc.) */
+    var failsafe = setTimeout(function () {
+      var p = document.getElementById('preloader');
+      if (p) {
+        sessionStorage.setItem('preloaderDone', '1');
+        p.remove();
+        initPage();
+      }
+    }, 4000);
+
     const chars = preloader.querySelectorAll('.char');
     const line = preloader.querySelector('.preloader-line');
     const sub = preloader.querySelector('.preloader-sub');
 
     const tl = gsap.timeline({
       onComplete: function () {
+        clearTimeout(failsafe);
         sessionStorage.setItem('preloaderDone', '1');
         gsap.to(preloader, {
           yPercent: -100,
@@ -66,6 +90,8 @@
 
   /* ═══ PAGE INITIALIZATION ═══ */
   function initPage() {
+    if (pageInitialized) return;
+    pageInitialized = true;
     initLenis();
     initCursor();
     initNavbar();
@@ -74,7 +100,6 @@
     initScrollReveals();
     initCounters();
     initMagneticHover();
-    initTypingEffect();
     initHorizontalScroll();
     initFilterTabs();
     initSkillBars();
@@ -405,47 +430,6 @@
         });
       });
     });
-  }
-
-
-  /* ═══ TYPING EFFECT ═══ */
-  function initTypingEffect() {
-    var typedEl = document.getElementById('typed-text');
-    if (!typedEl) return;
-
-    var words = (typedEl.getAttribute('data-words') || '').split('|').filter(Boolean);
-    if (!words.length) return;
-
-    var wordIndex = 0;
-    var charIndex = 0;
-    var isDeleting = false;
-    var typeSpeed = 80;
-
-    function type() {
-      var current = words[wordIndex];
-      if (isDeleting) {
-        typedEl.textContent = current.substring(0, charIndex - 1);
-        charIndex--;
-        typeSpeed = 40;
-      } else {
-        typedEl.textContent = current.substring(0, charIndex + 1);
-        charIndex++;
-        typeSpeed = 80;
-      }
-
-      if (!isDeleting && charIndex === current.length) {
-        typeSpeed = 2000;
-        isDeleting = true;
-      } else if (isDeleting && charIndex === 0) {
-        isDeleting = false;
-        wordIndex = (wordIndex + 1) % words.length;
-        typeSpeed = 400;
-      }
-
-      setTimeout(type, typeSpeed);
-    }
-
-    setTimeout(type, 1000);
   }
 
 
