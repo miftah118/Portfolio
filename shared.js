@@ -467,14 +467,31 @@
       var container = document.getElementById(targetId);
       if (!container) return;
 
+      /* Main portfolio filter gets special handling for the GFX gallery section */
+      var gfxSection = (tabGroup.id === 'main-filter-tabs')
+        ? document.getElementById('gfx-section')
+        : null;
+
       tabs.forEach(function (tab) {
         tab.addEventListener('click', function () {
           tabs.forEach(function (t) { t.classList.remove('active'); });
           tab.classList.add('active');
 
           var filter = tab.getAttribute('data-filter');
-          var items = container.querySelectorAll('[data-category]');
 
+          /* GFX section toggling on the main filter */
+          if (gfxSection) {
+            if (filter === 'gfx') {
+              container.style.display = 'none';
+              gfxSection.style.display = '';
+              ScrollTrigger.refresh();
+              return;
+            }
+            container.style.display = '';
+            gfxSection.style.display = (filter === 'all') ? '' : 'none';
+          }
+
+          var items = container.querySelectorAll('[data-category]');
           items.forEach(function (item) {
             if (filter === 'all' || item.getAttribute('data-category') === filter) {
               gsap.to(item, {
@@ -495,6 +512,8 @@
               });
             }
           });
+
+          ScrollTrigger.refresh();
         });
       });
     });

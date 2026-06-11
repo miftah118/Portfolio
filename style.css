@@ -1740,6 +1740,117 @@ html.has-anim .stagger-item {
   .filter-tab { flex-shrink: 0; }
 }
 
+/* ══════════════════════════════════════════════════════════════
+   GFX GALLERY
+   ══════════════════════════════════════════════════════════════ */
+
+.gfx-section {
+  margin-top: 72px;
+  padding-top: 56px;
+  border-top: 1px solid var(--border);
+}
+
+.gfx-label-row {
+  margin-bottom: 28px;
+}
+
+.sub-filter {
+  margin-bottom: 28px;
+}
+
+.sub-filter .filter-tab {
+  padding: 5px 13px;
+  font-size: 0.61rem;
+}
+
+.gfx-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+}
+
+.gfx-item {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  border-radius: 6px;
+  background: var(--bg-card);
+  cursor: pointer;
+}
+
+.gfx-item a {
+  display: block;
+  width: 100%;
+  height: 100%;
+  text-decoration: none;
+}
+
+.gfx-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.5s ease;
+}
+
+.gfx-item:hover img {
+  transform: scale(1.06);
+}
+
+.gfx-item-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.82) 0%, transparent 60%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  display: flex;
+  align-items: flex-end;
+  padding: 14px 12px;
+  pointer-events: none;
+}
+
+.gfx-item:hover .gfx-item-overlay {
+  opacity: 1;
+}
+
+.gfx-item-label {
+  font-family: var(--font-mono);
+  font-size: 0.61rem;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: #fff;
+  line-height: 1.35;
+}
+
+.gfx-item-label small {
+  display: block;
+  opacity: 0.58;
+  font-size: 0.58rem;
+  margin-top: 3px;
+  text-transform: none;
+  letter-spacing: 0;
+  font-family: var(--font-body);
+  font-style: italic;
+}
+
+.gfx-item.wide {
+  grid-column: span 2;
+  aspect-ratio: 32 / 9;
+}
+
+@media (max-width: 1100px) {
+  .gfx-grid { grid-template-columns: repeat(3, 1fr); }
+}
+
+@media (max-width: 700px) {
+  .gfx-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 400px) {
+  .gfx-item.wide { grid-column: span 1; aspect-ratio: 1 / 1; }
+}
+
+
 /* ═══ REDUCED MOTION ═══ */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
